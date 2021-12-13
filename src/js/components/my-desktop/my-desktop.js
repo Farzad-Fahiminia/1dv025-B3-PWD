@@ -39,11 +39,6 @@ template.innerHTML = `
        bottom: 0;
        width: 50%;
        border-radius: 20px;
-       /* -webkit-filter: blur(5px);
-      -moz-filter: blur(5px);
-      -o-filter: blur(5px);
-      -ms-filter: blur(5px);
-      filter: blur(5px); */
       -webkit-backdrop-filter: blur(50px);
       backdrop-filter: blur(50px);
      }
