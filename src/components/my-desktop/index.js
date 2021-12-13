@@ -6,4 +6,4 @@
  */
 
 // It is best practice to have a index.js as root of the component. You can add the content in desktop.js in this file if you like, or import as this.
-import './desktop.js'
+import './my-desktop.js'
