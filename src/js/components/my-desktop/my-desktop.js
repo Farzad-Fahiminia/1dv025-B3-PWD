@@ -29,11 +29,13 @@ template.innerHTML = `
 
      .app-bar {
        background-color: rgba(0, 0, 0, 0.2);
+       box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.4);
+       border: solid 1px rgba(255, 255, 255, 0.1);
        position: absolute;
        left: 25%;
        display: block;
-       margin: 0 auto;
-       padding: 20px 0;
+       margin: 20px auto;
+       padding: 15px 0;
        bottom: 0;
        width: 50%;
        border-radius: 20px;
@@ -48,11 +50,18 @@ template.innerHTML = `
 
      .app {
        display: inline-block;
-       background-color: black;
+       background-color: #a8bfcb;
        border-radius: 10px;
        margin: 0 5px;
        width: 60px;
        height: 60px;
+       -webkit-transition: all 0.1s ease-in-out;
+       -o-transition: all 0.1s ease-in-out;
+       transition: all 0.1s ease-in-out;
+     }
+     .app:hover {
+       box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.4);
+}
      }
    </style>
 
