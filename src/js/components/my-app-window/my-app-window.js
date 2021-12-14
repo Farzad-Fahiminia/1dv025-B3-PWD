@@ -13,69 +13,48 @@ template.innerHTML = `
    <style>
      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
 
-     .my-desktop {
-       background-image: url("js/components/my-desktop/images/bg.jpg");
-       background-position: center;
-       background-repeat: no-repeat;
-       background-size: cover;
-       font-family: 'Manrope', sans-serif;
+     .my-app-window {
+       display: block;
        /* background-color: #a8bfcb; */
-       width: 100vw;
-       height: 100vh;
+       box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.5);
+       border-radius: 7px;
+       width: 500px;
+       height: 350px;
        margin: 0;
        padding: 0;
-       font-size: 1.2em;
-       text-align: center;
+       font-size: 1em;
        color: #fff;
      }
 
-     .app-bar {
-       background-color: rgba(0, 0, 0, 0.2);
-       box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.4);
-       border: solid 1px rgba(255, 255, 255, 0.1);
-       position: absolute;
-       left: 25%;
-       display: block;
-       margin: 20px auto;
-       padding: 15px 0;
-       bottom: 0;
-       width: 50%;
-       border-radius: 20px;
+     .window-top-bar {
+       background-color: rgba(0, 0, 0, 0.5);
        -webkit-backdrop-filter: blur(50px);
        backdrop-filter: blur(50px);
+       border-radius: 7px 7px 0 0;
+       display: block;
+       padding: 10px 0;
+       width: 100%;
+       font-size: 0.8em;
      }
 
-     .app {
-       display: inline-block;
+     .window-content {
        background-color: #a8bfcb;
-       border-radius: 10px;
-       margin: 0 5px;
-       width: 60px;
-       height: 60px;
-       -webkit-transition: all 0.1s ease-in-out;
-       -o-transition: all 0.1s ease-in-out;
-       transition: all 0.1s ease-in-out;
-     }
-     .app:hover {
-       box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.4);
+       width: 100%;
+       height: 100%;
+       border-radius: 0 0 7px 7px;
      }
    </style>
 
-   <div class="my-desktop">
-     DESKTOP BACKGROUND IMAGE
-     <my-app-window></my-app-window>
-     <div class="app-bar">
-       <div class="app"></div>
-       <div class="app"></div>
-       <div class="app"></div>
-     </div>
+   <div class="my-app-window">
+     <div class="window-top-bar">My application Window</div>
+     <div class="window-content">Window content</div>
    </div>
  `
 
 /**
  * Define custom element.
  */
-customElements.define('my-desktop',
+customElements.define('my-app-window',
   /**
   *
   */
