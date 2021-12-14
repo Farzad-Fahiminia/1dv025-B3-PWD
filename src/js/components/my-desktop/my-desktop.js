@@ -30,6 +30,8 @@ template.innerHTML = `
      }
 
      .app-bar {
+       display: block;
+       z-index: 9999;
        background-color: rgba(0, 0, 0, 0.2);
        box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.4);
        border: solid 1px rgba(255, 255, 255, 0.1);
@@ -62,7 +64,6 @@ template.innerHTML = `
    </style>
 
    <div class="my-desktop">
-     DESKTOP BACKGROUND IMAGE
      <my-app-window></my-app-window>
      <div class="app-bar">
        <div class="app"></div>
