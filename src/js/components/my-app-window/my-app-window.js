@@ -73,7 +73,7 @@ template.innerHTML = `
    <div id="my-app-window">
      <div id="my-app-window-header">
        My application Window
-      <button class="close-button">X</button>
+      <button class="close-button" type="reset">X</button>
      </div>
      <div class="window-content">Window content</div>
    </div>
@@ -98,13 +98,13 @@ customElements.define('my-app-window',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-      // Bind event handlers of child elements.
-      // this._onSubmit = this._onSubmit.bind(this)
-      // this._formElement.addEventListener('submit', this._onSubmit)
+      this.myAppWindow = this.shadowRoot.querySelector('#my-app-window')
+      this.dragElement(this.myAppWindow)
 
-      // this.element = this.shadowRoot.querySelector('my-app-window')
-      this.dragElement(this.shadowRoot.querySelector('#my-app-window'))
-      // this.dragElement() = document.getElementsByClassName('my-app-window')
+      this.closeButton = this.shadowRoot.querySelector('.close-button')
+      this.closeButton.addEventListener('click', (event) => {
+        this.closeAppWindow(event)
+      })
     }
 
     // Code source https://www.w3schools.com/howto/howto_js_draggable.asp
@@ -180,83 +180,8 @@ customElements.define('my-app-window',
       }
     }
 
-    /**
-    * Attributes to monitor for changes.
-    *
-    * @returns {string[]} A string array of attributes to monitor.
-    */
-    static get observedAttributes () {
-      return ['message']
-    }
-
-    /**
-    * Called after the element is inserted into the DOM.
-    */
-    connectedCallback () {
-      if (!this.hasAttribute('message')) {
-        this.setAttribute('message', 'Prepare for the quiz"')
-      }
-      this._upgradeProperty('message')
-    }
-
-    // /**
-    // * Called when observed attribute(s) changes.
-    // *
-    // * @param {string} name - The attribute's name.
-    // * @param {*} oldValue - The old value.
-    // * @param {*} newValue - The new value.
-    // */
-    // attributeChangedCallback (name, oldValue, newValue) {
-    //   if (name === 'message') {
-    //     this._messageBoard.textContent = newValue
-    //   }
-    // }
-
-    /**
-    * Called after the element has been removed from the DOM.
-    */
-    disconnectedCallback () {
-    }
-
-    /**
-    * Run the specified instance property
-    * through the class setter.
-    *
-    * @param {string} prop - The property's name.
-    */
-    _upgradeProperty (prop) {
-      if (Object.hasOwnProperty.call(this, prop)) {
-        const value = this[prop]
-        delete this[prop]
-        this[prop] = value
-      }
-    }
-
-    /**
-    * Gets the message.
-    *
-    * @returns {string} The message value.
-    */
-    get message () {
-      return this.getAttribute('message')
-    }
-
-    /**
-    * Sets the message.
-    *
-    * @param {string} value - The message.
-    */
-    set message (value) {
-      if (this.message !== value) {
-        this.setAttribute('message', value)
-      }
-    }
-
-    /**
-    * Cleans the message board.
-    */
-    clean () {
-      this._messageBoard.textContent = ''
+    closeAppWindow () {
+      this.myAppWindow.remove()
     }
   }
 )
