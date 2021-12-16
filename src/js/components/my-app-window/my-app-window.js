@@ -72,7 +72,7 @@ template.innerHTML = `
 
    <div id="my-app-window">
      <div id="my-app-window-header">
-       My application Window
+      My application Window
       <button class="close-button" type="reset">X</button>
      </div>
      <div class="window-content">Window content</div>
