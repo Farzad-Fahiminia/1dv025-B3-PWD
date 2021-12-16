@@ -99,6 +99,18 @@ customElements.define('my-desktop',
         console.log('KLICK PÅ MEMORY APP')
         this.openAppWindow(event)
       })
+
+      this.myChatApp = this.shadowRoot.querySelector('#chat-app')
+      this.myChatApp.addEventListener('click', (event) => {
+        console.log('KLICK PÅ CHAT APP')
+        this.openAppWindow(event)
+      })
+
+      this.myMysteryApp = this.shadowRoot.querySelector('#mystery-app')
+      this.myMysteryApp.addEventListener('click', (event) => {
+        console.log('KLICK PÅ MYSTERY APP')
+        this.openAppWindow(event)
+      })
     }
 
     openAppWindow () {
