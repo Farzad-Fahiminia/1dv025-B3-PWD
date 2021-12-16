@@ -45,7 +45,7 @@ template.innerHTML = `
      .close-button {
        position: relative;
        float: right;
-       top: 3px;
+       top: -28px;
        right: 10px;
        margin-left: -20px;
        background-color: #fc615d;
@@ -73,8 +73,8 @@ template.innerHTML = `
    <div id="my-app-window">
      <div id="my-app-window-header">
       My application Window
+      </div>
       <button class="close-button" type="reset">X</button>
-     </div>
      <div class="window-content">Window content</div>
    </div>
  `

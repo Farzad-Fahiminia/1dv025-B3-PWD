@@ -99,31 +99,31 @@ customElements.define('my-desktop',
       this.myMemoryApp.addEventListener('click', (event) => {
         console.log('KLICK PÅ MEMORY APP')
         console.log(this.myAppWindowHeader)
-        this.openAppWindow(event)
+        this.openAppWindow('Memory Game')
       })
 
       this.myChatApp = this.shadowRoot.querySelector('#chat-app')
       this.myChatApp.addEventListener('click', (event) => {
         console.log('KLICK PÅ CHAT APP')
-        this.openAppWindow(event)
+        this.openAppWindow('Chat App')
       })
 
       this.myMysteryApp = this.shadowRoot.querySelector('#mystery-app')
       this.myMysteryApp.addEventListener('click', (event) => {
         console.log('KLICK PÅ MYSTERY APP')
-        this.openAppWindow(event)
+        this.openAppWindow('Mystery App')
       })
 
       this.multipleAppWindow = []
     }
 
-    openAppWindow () {
+    openAppWindow (title) {
       console.log('NU ÄR DU INNE I OPEN APP!')
       const appWindow = document.createElement('my-app-window')
-      console.log(appWindow)
+      const heading = appWindow.shadowRoot.querySelector('#my-app-window-header')
+      heading.textContent = title
       this.myDesktop.append(appWindow)
       this.multipleAppWindow.push(appWindow)
-      console.log(this.multipleAppWindow)
     }
   }
 )
