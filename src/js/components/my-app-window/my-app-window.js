@@ -110,7 +110,7 @@ customElements.define('my-app-window',
     // Code source https://www.w3schools.com/howto/howto_js_draggable.asp
     // With additional solutions from https://stackoverflow.com/questions/48097791/how-to-keep-a-draggable-element-from-being-moved-outside-a-boundary
     // Make the DIV element draggable:
-    dragElement (elment) {
+    dragElement (element) {
       const windowPadding = 0
       let rect
       const viewport = {
@@ -124,12 +124,12 @@ customElements.define('my-app-window',
       let pos2 = 0
       let pos3 = 0
       let pos4 = 0
-      if (this.shadowRoot.querySelector('#' + elment.id + '-header')) {
+      if (this.shadowRoot.querySelector('#' + element.id + '-header')) {
       // if present, the header is where you move the DIV from:
-        this.shadowRoot.querySelector('#' + elment.id + '-header').onmousedown = dragMouseDown
+        this.shadowRoot.querySelector('#' + element.id + '-header').onmousedown = dragMouseDown
       } else {
       // otherwise, move the DIV from anywhere inside the DIV:
-        elment.onmousedown = dragMouseDown
+        element.onmousedown = dragMouseDown
       }
 
       function dragMouseDown (e) {
@@ -140,7 +140,7 @@ customElements.define('my-app-window',
         pos4 = e.clientY
 
         // store the current viewport and element dimensions when a drag starts
-        rect = elment.getBoundingClientRect()
+        rect = element.getBoundingClientRect()
         viewport.bottom = window.innerHeight - windowPadding
         viewport.left = windowPadding
         viewport.right = window.innerWidth - windowPadding
@@ -161,15 +161,15 @@ customElements.define('my-app-window',
         pos4 = e.clientY
         
         // check to make sure the element will be within our viewport boundary
-        const newLeft = elment.offsetLeft - pos1
-        const newTop = elment.offsetTop - pos2
+        const newLeft = element.offsetLeft - pos1
+        const newTop = element.offsetTop - pos2
 
         if (newLeft < viewport.left || newTop < viewport.top || newLeft + rect.width > viewport.right || newTop + rect.height > viewport.bottom) {
           // the element will hit the boundary, do nothing...
         } else {
           // set the element's new position:
-          elment.style.top = (elment.offsetTop - pos2) + 'px'
-          elment.style.left = (elment.offsetLeft - pos1) + 'px'
+          element.style.top = (element.offsetTop - pos2) + 'px'
+          element.style.left = (element.offsetLeft - pos1) + 'px'
         }
       }
 
