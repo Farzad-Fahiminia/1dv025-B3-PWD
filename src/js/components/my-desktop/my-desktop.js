@@ -61,9 +61,16 @@ template.innerHTML = `
      .app:hover {
        box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.4);
      }
+
+     #folow-the-white-rabbit {
+       position: absolute;
+       top: 0;
+       left: 0;
+     }
    </style>
 
    <div class="my-desktop">
+     <canvas id="folow-the-white-rabbit"></canvas>
      <div class="app-bar">
        <div class="app" id="memory-app"></div>
        <div class="app" id="chat-app"></div>
@@ -112,6 +119,7 @@ customElements.define('my-desktop',
       this.myMysteryApp.addEventListener('click', (event) => {
         console.log('KLICK PÅ MYSTERY APP')
         this.openAppWindow('Mystery App')
+        // this.whiteRabbit()
       })
 
       this.multipleAppWindow = []
@@ -124,6 +132,62 @@ customElements.define('my-desktop',
       heading.textContent = title
       this.myDesktop.append(appWindow)
       this.multipleAppWindow.push(appWindow)
+    }
+
+    // Fallow The White Rabbit: this.whiteRabbit()
+    // Source: https://codepen.io/wefiy/pen/WPpEwo by Boujjou Achraf
+    whiteRabbit () {
+      const c = this.shadowRoot.getElementById('folow-the-white-rabbit')
+      const ctx = c.getContext('2d')
+
+      // Making the canvas full screen
+      c.height = window.innerHeight
+      c.width = window.innerWidth
+
+      // Chinese characters - taken from the unicode charset
+      let matrix = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}'
+      // Converting the string into an array of single characters
+      matrix = matrix.split('')
+
+      const fontSize = 14
+      const columns = c.width / fontSize // Number of columns for the rain
+      // An array of drops - one per column
+      const drops = []
+      
+      // x below is the x coordinate
+      // 1 = y co-ordinate of the drop (same for every drop initially)
+      for (let x = 0; x < columns; x++) {
+        drops[x] = 1
+      }
+
+      // Drawing the characters
+      function draw () {
+        // Black BG for the canvas
+        // Translucent BG to show trail
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)'
+        ctx.fillRect(0, 0, c.width, c.height)
+
+        ctx.fillStyle = '#00ff00' // Green text
+        ctx.font = fontSize + 'px arial'
+        
+        // Looping over drops
+        for (let i = 0; i < drops.length; i++) {
+          // A random chinese character to print
+          const text = matrix[Math.floor(Math.random() * matrix.length)]
+          // x = i * font_size, y = value of drops[i] * font_size
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+
+          // Sending the drop back to the top randomly after it has crossed the screen
+          // Adding a randomness to the reset to make the drops scattered on the Y axis
+          if (drops[i] * fontSize > c.height && Math.random() > 0.975) {
+            drops[i] = 0
+          } else {
+            // Incrementing Y coordinate
+            drops[i]++
+          }
+        }
+      }
+      setInterval(draw, 35)
     }
   }
 )
