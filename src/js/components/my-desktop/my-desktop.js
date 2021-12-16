@@ -64,7 +64,6 @@ template.innerHTML = `
    </style>
 
    <div class="my-desktop">
-     <my-app-window></my-app-window>
      <div class="app-bar">
        <div class="app" id="memory-app"></div>
        <div class="app" id="chat-app"></div>
