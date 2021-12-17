@@ -182,7 +182,7 @@ customElements.define('my-app-window',
     }
 
     closeAppWindow () {
-      this.myAppWindow.remove()
+      this.remove()
     }
   }
 )

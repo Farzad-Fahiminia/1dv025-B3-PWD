@@ -49,7 +49,7 @@ template.innerHTML = `
 
      .app {
        display: inline-block;
-       background-color: #a8bfcb;
+       background-color: #ffffff;
        border-radius: 10px;
        margin: 0 5px;
        width: 60px;
@@ -62,6 +62,78 @@ template.innerHTML = `
      .app:hover {
        box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.4);
      }
+
+     #memory-app {
+       position: relative;
+      /* background-image: url(js/components/my-desktop/images/x-diamond-fill.svg);
+      background-position: center;
+      background-repeat: no-repeat; */
+      background-size: 60%;
+      background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(78,125,184,1) 35%, rgba(0,212,255,1) 100%);
+      fill: #fff;
+     }
+
+    #memory-app:before {
+      display: block;
+      content: ' ';
+      background-image: url('js/components/my-desktop/images/x-diamond-fill.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 40px 40px;
+      height: 40px;
+      width: 40px;
+      position:absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      margin: auto;
+    }
+
+     #chat-app {
+      position: relative;
+      /* background-image: url(js/components/my-desktop/images/chat-dots.svg);
+      background-position: center;
+      background-repeat: no-repeat; */
+      background-size: 60%;
+      background: linear-gradient(90deg, #9ebd13 0%, #008552 100%);
+      color: #fff;
+     }
+
+     #chat-app:before {
+      display: block;
+      content: ' ';
+      background-image: url('js/components/my-desktop/images/chat-dots-fill.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 40px 40px;
+      height: 40px;
+      width: 40px;
+      position:absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      margin: auto;
+    }
+
+    #mystery-app {
+      position: relative;
+      /* background-image: url(js/components/my-desktop/images/cloud-sun.svg);
+      background-position: center;
+      background-repeat: no-repeat; */
+      background-size: 60%;
+      background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+      color: #fff;
+     }
+
+     #mystery-app:before {
+      display: block;
+      content: ' ';
+      background-image: url('js/components/my-desktop/images/cloud-sun.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 40px 40px;
+      height: 40px;
+      width: 40px;
+      position:absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      margin: auto;
+    }
 
      .tooltip {
        position: relative;
