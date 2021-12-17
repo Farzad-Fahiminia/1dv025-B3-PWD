@@ -75,7 +75,7 @@ template.innerHTML = `
         /* visibility: hidden; */
         opacity: 0;
         top: -100%;
-        left: -50%;
+        left: -65%;
         width: 120px;
         background-color: rgba(0, 0, 0, 0.4);
        -webkit-backdrop-filter: blur(50px);
