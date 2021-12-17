@@ -53,6 +53,7 @@ template.innerHTML = `
        border-radius: 50%;
        width: 17px;
        height: 17px;
+       cursor: pointer;
        font-size: 0.7em;
        color: rgba(0, 0, 0, 0);
      }

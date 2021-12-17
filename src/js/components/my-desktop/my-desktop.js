@@ -54,6 +54,7 @@ template.innerHTML = `
        margin: 0 5px;
        width: 60px;
        height: 60px;
+       cursor: pointer;
        -webkit-transition: all 0.1s ease-in-out;
        -o-transition: all 0.1s ease-in-out;
        transition: all 0.1s ease-in-out;
@@ -61,6 +62,37 @@ template.innerHTML = `
      .app:hover {
        box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.4);
      }
+
+     .tooltip {
+       position: relative;
+       display: inline-block;
+       border-bottom: 1px dotted black;
+      }
+      
+      .tooltip .tooltiptext {
+        position: absolute;
+        z-index: 9999;
+        /* visibility: hidden; */
+        opacity: 0;
+        top: -100%;
+        left: -50%;
+        width: 120px;
+        background-color: rgba(0, 0, 0, 0.4);
+       -webkit-backdrop-filter: blur(50px);
+        color: #fff;
+        font-size: 0.8em;
+        text-align: center;
+        border-radius: 4px;
+        padding: 7px 10px;
+        -webkit-transition: opacity 0.05s ease-out;
+       -o-transition: opacity 0.05s ease-out;
+       transition: opacity 0.05s ease-out;
+      }
+
+      .tooltip:hover .tooltiptext {
+        /* visibility: visible; */
+        opacity: 1;
+      }
 
      #folow-the-white-rabbit {
        position: absolute;
@@ -72,9 +104,9 @@ template.innerHTML = `
    <div class="my-desktop">
      <canvas id="folow-the-white-rabbit"></canvas>
      <div class="app-bar">
-       <div class="app" id="memory-app"></div>
-       <div class="app" id="chat-app"></div>
-       <div class="app" id="mystery-app"></div>
+       <div class="app tooltip" id="memory-app"><span class="tooltiptext">Memory Game</span></div>
+       <div class="app tooltip" id="chat-app"><span class="tooltiptext">Chat App</span></div>
+       <div class="app tooltip" id="mystery-app"><span class="tooltiptext">Mystery App</span></div>
      </div>
    </div>
  `
