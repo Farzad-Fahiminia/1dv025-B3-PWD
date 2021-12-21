@@ -19,7 +19,6 @@ template.innerHTML = `
        background-repeat: no-repeat;
        background-size: cover;
        font-family: 'Manrope', sans-serif;
-       /* background-color: #a8bfcb; */
        width: 100vw;
        height: 100vh;
        margin: 0;
@@ -64,10 +63,7 @@ template.innerHTML = `
      }
 
      #memory-app {
-       position: relative;
-      /* background-image: url(js/components/my-desktop/images/x-diamond-fill.svg);
-      background-position: center;
-      background-repeat: no-repeat; */
+      position: relative;
       background-size: 60%;
       background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(78,125,184,1) 35%, rgba(0,212,255,1) 100%);
       fill: #fff;
@@ -82,16 +78,13 @@ template.innerHTML = `
       background-size: 40px 40px;
       height: 40px;
       width: 40px;
-      position:absolute;
+      position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
       margin: auto;
     }
 
      #chat-app {
       position: relative;
-      /* background-image: url(js/components/my-desktop/images/chat-dots.svg);
-      background-position: center;
-      background-repeat: no-repeat; */
       background-size: 60%;
       background: linear-gradient(90deg, #9ebd13 0%, #008552 100%);
       color: #fff;
@@ -106,16 +99,13 @@ template.innerHTML = `
       background-size: 40px 40px;
       height: 40px;
       width: 40px;
-      position:absolute;
+      position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
       margin: auto;
     }
 
     #mystery-app {
       position: relative;
-      /* background-image: url(js/components/my-desktop/images/cloud-sun.svg);
-      background-position: center;
-      background-repeat: no-repeat; */
       background-size: 60%;
       background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
       color: #fff;
@@ -130,9 +120,31 @@ template.innerHTML = `
       background-size: 40px 40px;
       height: 40px;
       width: 40px;
-      position:absolute;
+      position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
       margin: auto;
+    }
+
+    #followTheWhiteRabbit {
+      z-index: 9999;
+      position: relative;
+      background-size: 60%;
+      float: right;
+      margin-top: 0px;
+      margin-right: 20px;
+     }
+
+     #followTheWhiteRabbit:before {
+      display: block;
+      content: ' ';
+      background-image: url('js/components/my-desktop/images/terminal.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
     }
 
      .tooltip {
@@ -144,7 +156,6 @@ template.innerHTML = `
       .tooltip .tooltiptext {
         position: absolute;
         z-index: 9999;
-        /* visibility: hidden; */
         opacity: 0;
         top: -100%;
         left: -65%;
@@ -173,7 +184,6 @@ template.innerHTML = `
       }
 
       .tooltip:hover .tooltiptext {
-        /* visibility: visible; */
         opacity: 1;
       }
 
@@ -182,10 +192,11 @@ template.innerHTML = `
        top: 0;
        left: 0;
      }
+
    </style>
 
    <div class="my-desktop">
-     <canvas id="folow-the-white-rabbit"></canvas>
+     <div id="followTheWhiteRabbit"></div>
      <div class="app-bar">
        <div class="app tooltip" id="memory-app"><span class="tooltiptext">Memory Game</span></div>
        <div class="app tooltip" id="chat-app"><span class="tooltiptext">Chat App</span></div>
@@ -215,29 +226,39 @@ customElements.define('my-desktop',
 
       this.myDesktop = this.shadowRoot.querySelector('.my-desktop')
 
-      // this.myAppWindowHeader = this.shadowRoot.querySelector('#my-app-window-header')
-
       this.myMemoryApp = this.shadowRoot.querySelector('#memory-app')
       this.myMemoryApp.addEventListener('click', (event) => {
-        console.log('KLICK PÅ MEMORY APP')
-        console.log(this.myAppWindowHeader)
         this.openAppWindow('Memory Game')
       })
 
       this.myChatApp = this.shadowRoot.querySelector('#chat-app')
       this.myChatApp.addEventListener('click', (event) => {
-        console.log('KLICK PÅ CHAT APP')
         this.openAppWindow('Chat App')
       })
 
       this.myMysteryApp = this.shadowRoot.querySelector('#mystery-app')
       this.myMysteryApp.addEventListener('click', (event) => {
-        console.log('KLICK PÅ MYSTERY APP')
         this.openAppWindow('Mystery App')
-        // this.whiteRabbit()
       })
 
       this.multipleAppWindow = []
+
+      this.followTheWhiteRabbit = this.shadowRoot.querySelector('#followTheWhiteRabbit')
+      this.followTheWhiteRabbit.addEventListener('click', (event) => {
+        this.flipMatrixOnClick()
+      })
+    }
+
+    flipMatrixOnClick () {
+      if (this.myDesktop.firstElementChild.id === 'followTheWhiteRabbit') {
+        const canvas = document.createElement('canvas')
+        canvas.setAttribute('id', 'folow-the-white-rabbit')
+        this.myDesktop.insertBefore(canvas, this.myDesktop.firstElementChild)
+        this.theCode = this.shadowRoot.querySelector('#folow-the-white-rabbit')
+        this.whiteRabbit()
+      } else {
+        this.theCode.remove()
+      }
     }
 
     openAppWindow (title) {
@@ -252,12 +273,12 @@ customElements.define('my-desktop',
     // Fallow The White Rabbit: this.whiteRabbit()
     // Source: https://codepen.io/wefiy/pen/WPpEwo by Boujjou Achraf
     whiteRabbit () {
-      const c = this.shadowRoot.getElementById('folow-the-white-rabbit')
-      const ctx = c.getContext('2d')
+      const canvas = this.shadowRoot.getElementById('folow-the-white-rabbit')
+      const ctx = canvas.getContext('2d')
 
       // Making the canvas full screen
-      c.height = window.innerHeight
-      c.width = window.innerWidth
+      canvas.height = window.innerHeight
+      canvas.width = window.innerWidth
 
       // Chinese characters - taken from the unicode charset
       let matrix = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}'
@@ -265,7 +286,7 @@ customElements.define('my-desktop',
       matrix = matrix.split('')
 
       const fontSize = 14
-      const columns = c.width / fontSize // Number of columns for the rain
+      const columns = canvas.width / fontSize // Number of columns for the rain
       // An array of drops - one per column
       const drops = []
       
@@ -280,7 +301,7 @@ customElements.define('my-desktop',
         // Black BG for the canvas
         // Translucent BG to show trail
         ctx.fillStyle = 'rgba(0, 0, 0, 0.04)'
-        ctx.fillRect(0, 0, c.width, c.height)
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
 
         ctx.fillStyle = '#00ff00' // Green text
         ctx.font = fontSize + 'px arial'
@@ -294,7 +315,7 @@ customElements.define('my-desktop',
 
           // Sending the drop back to the top randomly after it has crossed the screen
           // Adding a randomness to the reset to make the drops scattered on the Y axis
-          if (drops[i] * fontSize > c.height && Math.random() > 0.975) {
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
             drops[i] = 0
           } else {
             // Incrementing Y coordinate
