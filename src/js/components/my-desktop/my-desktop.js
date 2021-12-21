@@ -65,8 +65,7 @@ template.innerHTML = `
      #memory-app {
       position: relative;
       background-size: 60%;
-      background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(78,125,184,1) 35%, rgba(0,212,255,1) 100%);
-      fill: #fff;
+      background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
      }
 
     #memory-app:before {
@@ -86,8 +85,7 @@ template.innerHTML = `
      #chat-app {
       position: relative;
       background-size: 60%;
-      background: linear-gradient(90deg, #9ebd13 0%, #008552 100%);
-      color: #fff;
+      background: linear-gradient(180deg, #9ebd13 0%, #008552 100%);
      }
 
      #chat-app:before {
@@ -97,6 +95,7 @@ template.innerHTML = `
       background-position: center;
       background-repeat: no-repeat;
       background-size: 40px 40px;
+      filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.7));
       height: 40px;
       width: 40px;
       position: absolute;
@@ -107,8 +106,7 @@ template.innerHTML = `
     #mystery-app {
       position: relative;
       background-size: 60%;
-      background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-      color: #fff;
+      background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
      }
 
      #mystery-app:before {
