@@ -170,6 +170,7 @@ template.innerHTML = `
         float: right;
         margin-top: 0px;
         margin-right: 20px;
+        cursor: pointer;
      }
 
      #followTheWhiteRabbit:before {
