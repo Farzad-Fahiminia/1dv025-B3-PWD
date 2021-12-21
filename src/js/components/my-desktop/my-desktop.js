@@ -123,33 +123,11 @@ template.innerHTML = `
       margin: auto;
     }
 
-    #followTheWhiteRabbit {
-      z-index: 9999;
-      position: relative;
-      background-size: 60%;
-      float: right;
-      margin-top: 0px;
-      margin-right: 20px;
-     }
-
-     #followTheWhiteRabbit:before {
-      display: block;
-      content: ' ';
-      background-image: url('js/components/my-desktop/images/terminal.svg');
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 20px 20px;
-      height: 20px;
-      width: 20px;
-      position: absolute;
-      top: 0; bottom: 0; left: 0; right: 0;
-    }
-
-     .tooltip {
+    .tooltip {
        position: relative;
        display: inline-block;
        border-bottom: 1px dotted black;
-      }
+    }
       
       .tooltip .tooltiptext {
         position: absolute;
@@ -184,6 +162,28 @@ template.innerHTML = `
       .tooltip:hover .tooltiptext {
         opacity: 1;
       }
+
+      #followTheWhiteRabbit {
+        z-index: 9999;
+        position: relative;
+        background-size: 60%;
+        float: right;
+        margin-top: 0px;
+        margin-right: 20px;
+     }
+
+     #followTheWhiteRabbit:before {
+       display: block;
+       content: ' ';
+       background-image: url('js/components/my-desktop/images/terminal.svg');
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: 20px 20px;
+       height: 20px;
+       width: 20px;
+       position: absolute;
+       top: 0; bottom: 0; left: 0; right: 0;
+    }
 
      #folow-the-white-rabbit {
        position: absolute;
@@ -247,6 +247,24 @@ customElements.define('my-desktop',
       })
     }
 
+    openAppWindow (title) {
+      const appWindow = document.createElement('my-app-window')
+      const heading = appWindow.shadowRoot.querySelector('#my-app-window-header')
+      heading.textContent = title
+      this.myDesktop.append(appWindow)
+      this.multipleAppWindow.push(appWindow)
+
+      appWindow.addEventListener('mousedown', (event) => {
+        this.multipleAppWindow.forEach(window => {
+          if (window === event.target) {
+            window.changeZIndex('201')
+          } else {
+            window.changeZIndex('199')
+          }
+        })
+      })
+    }
+
     flipMatrixOnClick () {
       if (this.myDesktop.firstElementChild.id === 'followTheWhiteRabbit') {
         const canvas = document.createElement('canvas')
@@ -259,16 +277,7 @@ customElements.define('my-desktop',
       }
     }
 
-    openAppWindow (title) {
-      console.log('NU ÄR DU INNE I OPEN APP!')
-      const appWindow = document.createElement('my-app-window')
-      const heading = appWindow.shadowRoot.querySelector('#my-app-window-header')
-      heading.textContent = title
-      this.myDesktop.append(appWindow)
-      this.multipleAppWindow.push(appWindow)
-    }
-
-    // Fallow The White Rabbit: this.whiteRabbit()
+    // Fallow The White Rabbit
     // Source: https://codepen.io/wefiy/pen/WPpEwo by Boujjou Achraf
     whiteRabbit () {
       const canvas = this.shadowRoot.getElementById('folow-the-white-rabbit')
@@ -287,7 +296,7 @@ customElements.define('my-desktop',
       const columns = canvas.width / fontSize // Number of columns for the rain
       // An array of drops - one per column
       const drops = []
-      
+
       // x below is the x coordinate
       // 1 = y co-ordinate of the drop (same for every drop initially)
       for (let x = 0; x < columns; x++) {

@@ -72,10 +72,8 @@ template.innerHTML = `
    </style>
 
    <div id="my-app-window">
-     <div id="my-app-window-header">
-      My application Window
-      </div>
-      <button class="close-button" type="reset">X</button>
+     <div id="my-app-window-header">My application Window</div>
+     <button class="close-button" type="reset">x</button>
      <div class="window-content">Window content</div>
    </div>
  `
@@ -179,6 +177,10 @@ customElements.define('my-app-window',
         document.onmouseup = null
         document.onmousemove = null
       }
+    }
+
+    changeZIndex (zIndex) {
+      this.myAppWindow.style.zIndex = zIndex
     }
 
     closeAppWindow () {
