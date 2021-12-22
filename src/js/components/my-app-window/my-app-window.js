@@ -20,8 +20,8 @@ template.innerHTML = `
        /* background-color: #a8bfcb; */
        box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.5);
        border-radius: 7px;
-       width: 500px;
-       height: 350px;
+       width: 600px;
+       height: 450px;
        margin: 0;
        padding: 0;
        font-size: 1em;
@@ -63,18 +63,20 @@ template.innerHTML = `
      }
 
      .window-content {
+       margin: 0;
        background-color: #fff;
        width: 100%;
        height: 100%;
        border-radius: 0 0 7px 7px;
        color: #1d1d1d;
+       overflow: hidden;
      }
    </style>
 
    <div id="my-app-window">
      <div id="my-app-window-header">My application Window</div>
      <button class="close-button" type="reset">x</button>
-     <div class="window-content">Window content</div>
+     <div class="window-content"></div>
    </div>
  `
 
