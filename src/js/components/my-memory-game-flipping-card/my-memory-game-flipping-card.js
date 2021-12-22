@@ -17,8 +17,8 @@
       outline: none;
       padding: 0;
       background-color: transparent;
-      width: 150px;
-      height: 150px;
+      width: 120px;
+      height: 120px;
       border-radius: 10px;
       border: 1px solid #f1f1f1;
       perspective: 1000px; /* Remove this if you don't want the 3D effect */
@@ -53,7 +53,7 @@
       background-image: url('js/components/my-memory-game-flipping-card/images/lnu-symbol.png');
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 70px auto;
+      background-size: 60px auto;
       position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
       margin: auto;
@@ -68,7 +68,7 @@
       background-image: url('js/components/my-memory-game-flipping-card/images/1.png');
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 110px auto;
+      background-size: 90px auto;
       position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
       margin: auto;

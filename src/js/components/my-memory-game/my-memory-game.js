@@ -13,7 +13,7 @@
    <style>
      .container {
        margin: auto;
-       padding: 20px;
+       padding: 10px;
        max-width: 600px;
        height: 450px;
        font-size: 1em;
@@ -24,7 +24,6 @@
    </style>
    <div class="container">
      <form id="memory-form">
-      <my-memory-game-flipping-card></my-memory-game-flipping-card>
     </form>
    </div>
  `
@@ -47,6 +46,16 @@
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
+
+      this.fillMemoryBoard()
+    }
+
+    fillMemoryBoard () {
+      for (let i = 0; i < 8; i++) {
+        const card = document.createElement('my-memory-game-flipping-card')
+        const memoryForm = this.shadowRoot.querySelector('#memory-form')
+        memoryForm.appendChild(card)
+      }
     }
   }
 )

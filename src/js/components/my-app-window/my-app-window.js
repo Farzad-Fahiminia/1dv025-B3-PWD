@@ -17,7 +17,6 @@ template.innerHTML = `
        display: block;
        position: absolute;
        z-index: 9;
-       /* background-color: #a8bfcb; */
        box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.5);
        border-radius: 7px;
        width: 600px;
@@ -29,7 +28,7 @@ template.innerHTML = `
      }
 
      #my-app-window-header {
-       background-color: rgba(0, 0, 0, 0.4);
+       background-color: rgba(255, 255, 255, 0.4);
        -webkit-backdrop-filter: blur(50px);
        backdrop-filter: blur(50px);
        border-radius: 7px 7px 0 0;
@@ -38,7 +37,7 @@ template.innerHTML = `
        padding: 10px 0;
        width: 100%;
        font-size: 0.8em;
-       color: rgba(255, 255, 255, 0.7);
+       color: rgba(0, 0, 0, 0.7);
        cursor: move;
      }
 
