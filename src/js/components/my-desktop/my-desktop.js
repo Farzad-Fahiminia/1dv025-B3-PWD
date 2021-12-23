@@ -257,11 +257,8 @@ customElements.define('my-desktop',
       this.multipleAppWindow.push(appWindow)
 
       if (title === 'Memory Game') {
-        console.log('MEMORY!!!!')
         const memoryGame = document.createElement('my-memory-game')
-        console.log(memoryGame)
         appWindow.shadowRoot.lastElementChild.lastElementChild.append(memoryGame)
-        console.log(appWindow)
       }
 
       appWindow.addEventListener('mousedown', (event) => {

@@ -82,7 +82,7 @@
             <!-- <img src="./images/lnu-symbol.png" alt="lnu-symbol"> -->
           </div>
           <div class="flip-card-front">
-            <slot></slot>
+            <!-- <slot></slot> -->
           </div>
        </div>
       </button>

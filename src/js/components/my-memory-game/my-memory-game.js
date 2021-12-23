@@ -15,7 +15,7 @@
        margin: auto;
        padding: 10px;
        max-width: 600px;
-       height: 450px;
+       height: 600px;
        font-size: 1em;
        background-color: #222;
        color: #fff;
@@ -47,14 +47,34 @@
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
+      this.quantityCards = 4
+      this.memoryCards = [
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/lnu-symbol.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/lnu-symbol.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/1.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/1.png'
+        },
+      ]
       this.fillMemoryBoard()
     }
 
     fillMemoryBoard () {
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < this.quantityCards; i++) {
+        console.log(this.memoryCards[i].img)
         const card = document.createElement('my-memory-game-flipping-card')
+        const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
         const memoryForm = this.shadowRoot.querySelector('#memory-form')
         memoryForm.appendChild(card)
+        // console.log(card.shadowRoot.lastElementChild.lastElementChild.lastElementChild)
+        // document.body.style.backgroundImage = "url('img_tree.png')";
+        console.log(cardFrontFace)
       }
     }
   }

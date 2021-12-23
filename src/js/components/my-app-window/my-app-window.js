@@ -20,7 +20,7 @@ template.innerHTML = `
        box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.5);
        border-radius: 7px;
        width: 600px;
-       height: 450px;
+       height: 600px;
        margin: 0;
        padding: 0;
        font-size: 1em;
