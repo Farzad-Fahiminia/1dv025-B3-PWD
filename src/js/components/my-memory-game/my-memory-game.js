@@ -67,23 +67,18 @@
 
     fillMemoryBoard () {
       for (let i = 0; i < this.quantityCards; i++) {
-        console.log(this.memoryCards[i].img)
+        // console.log(this.memoryCards[i].img)
         const card = document.createElement('my-memory-game-flipping-card')
         const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
-        cardFrontFace.style.backgroundImage = `url('${this.memoryCards[i].img}');`
-        // cardFrontFace.style.backgroundColor = 'red;'
+        cardFrontFace.style.backgroundImage = `url('${this.memoryCards[i].img}')`
+        // cardFrontFace.style.backgroundColor = 'red'
         const memoryForm = this.shadowRoot.querySelector('#memory-form')
-        // const div = document.createElement('div')
-        // div.append([i])
-        // cardFrontFace.appendChild(div)
-        // const element = `<img src="${this.memoryCards[i].img}">`
-        const image = document.createElement('img')
-        image.setAttribute('src', this.memoryCards[i].img)
+        // const image = document.createElement('img')
+        // image.setAttribute('src', this.memoryCards[i].img)
         // cardFrontFace.append(image)
         memoryForm.appendChild(card)
         // console.log(card.shadowRoot.lastElementChild.lastElementChild.lastElementChild)
         // document.body.style.backgroundImage = "url('img_tree.png')";
-        console.log(`url('${this.memoryCards[i].img}');`)
       }
     }
   }
