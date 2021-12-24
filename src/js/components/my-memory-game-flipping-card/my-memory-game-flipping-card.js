@@ -65,7 +65,7 @@
       color: #1d1d1d;
       display: block;
       content: '';
-      background-image: url('js/components/my-memory-game-flipping-card/images/1.png');
+      background-image: url('js/components/my-memory-game-flipping-card/images/0.png');
       background-position: center;
       background-repeat: no-repeat;
       background-size: 90px auto;

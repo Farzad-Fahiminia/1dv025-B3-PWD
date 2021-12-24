@@ -16,7 +16,7 @@ template.innerHTML = `
      #my-app-window {
        display: block;
        position: absolute;
-       z-index: 9;
+       z-index: 202;
        box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.5);
        border-radius: 7px;
        width: 600px;

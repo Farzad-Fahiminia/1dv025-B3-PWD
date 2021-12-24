@@ -50,17 +50,17 @@
       this.quantityCards = 4
       this.memoryCards = [
         {
-          img: 'js/components/my-memory-game-flipping-card/images/lnu-symbol.png'
+          img: 'js/components/my-memory-game-flipping-card/images/0.png'
         },
         {
-          img: 'js/components/my-memory-game-flipping-card/images/lnu-symbol.png'
-        },
-        {
-          img: 'js/components/my-memory-game-flipping-card/images/1.png'
+          img: 'js/components/my-memory-game-flipping-card/images/0.png'
         },
         {
           img: 'js/components/my-memory-game-flipping-card/images/1.png'
         },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/1.png'
+        }
       ]
       this.fillMemoryBoard()
     }
@@ -70,11 +70,13 @@
         console.log(this.memoryCards[i].img)
         const card = document.createElement('my-memory-game-flipping-card')
         const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
+        cardFrontFace.style.backgroundImage = `url('${this.memoryCards[i].img}');`
+        cardFrontFace.style.backgroundColor = 'red;'
         const memoryForm = this.shadowRoot.querySelector('#memory-form')
         memoryForm.appendChild(card)
         // console.log(card.shadowRoot.lastElementChild.lastElementChild.lastElementChild)
         // document.body.style.backgroundImage = "url('img_tree.png')";
-        console.log(cardFrontFace)
+        console.log(`url('${this.memoryCards[i].img}');`)
       }
     }
   }
