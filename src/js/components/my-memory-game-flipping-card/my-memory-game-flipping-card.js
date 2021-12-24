@@ -75,6 +75,14 @@
       transform: rotateY(180deg);
     }
 
+    .flip-card-front img {
+      width: 90px;
+      height: auto;
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      margin: auto;
+    }
+
    </style>
       <button class="flip-card">
         <div class="flip-card-inner">
