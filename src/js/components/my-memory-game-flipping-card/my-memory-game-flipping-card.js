@@ -46,14 +46,14 @@
 
     /* Style the front side (fallback if image is missing) */
     .flip-card-back {
-      background-color: yellow;
+      background-color: #72c4bf;
       color: #000000;
       display: block;
       content: '';
-      background-image: url('js/components/my-memory-game-flipping-card/images/lnu-symbol.png');
+      background-image: url('js/components/my-memory-game-flipping-card/images/back.png');
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 60px auto;
+      background-size: 90px auto;
       position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
       margin: auto;

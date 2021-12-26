@@ -65,7 +65,7 @@ template.innerHTML = `
      #memory-app {
       position: relative;
       background-size: 60%;
-      background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+      background: #72c4bf;
      }
 
     #memory-app:before {
@@ -75,6 +75,7 @@ template.innerHTML = `
       background-position: center;
       background-repeat: no-repeat;
       background-size: 40px 40px;
+      filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 1));
       height: 40px;
       width: 40px;
       position: absolute;

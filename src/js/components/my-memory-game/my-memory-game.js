@@ -47,7 +47,7 @@
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-      this.quantityCards = 4
+      // this.quantityCards = 4
       this.memoryCards = [
         {
           img: 'js/components/my-memory-game-flipping-card/images/0.png'
@@ -60,14 +60,52 @@
         },
         {
           img: 'js/components/my-memory-game-flipping-card/images/1.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/2.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/2.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/3.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/3.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/4.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/4.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/5.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/5.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/6.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/6.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/7.png'
+        },
+        {
+          img: 'js/components/my-memory-game-flipping-card/images/7.png'
         }
       ]
+      this.memoryCards.sort(() => 0.5 - Math.random())
       this.fillMemoryBoard()
     }
 
     fillMemoryBoard () {
-      for (let i = 0; i < this.quantityCards; i++) {
+      for (let i = 0; i < this.memoryCards.length; i++) {
         // console.log(this.memoryCards[i].img)
+        // console.log('-----------', this.memoryCards.sort(() => 0.5 - Math.random()))
         const card = document.createElement('my-memory-game-flipping-card')
         const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
         cardFrontFace.style.backgroundImage = `url('${this.memoryCards[i].img}')`
@@ -83,3 +121,12 @@
     }
   }
 )
+
+// Todo list------------------
+// Ta fram 8 bilder till memory.
+// Kolla om korten matchar och göm dem.
+// Om brädan är tom så är spelet över, börja om-knapp.
+// Spelet ska kunna köras i tre olika svårighetsgrader.
+
+// Done ----------------------
+// Slumpa fram korten.
