@@ -48,6 +48,9 @@
         .appendChild(template.content.cloneNode(true))
 
       // this.quantityCards = 4
+
+      // Images from URL below.
+      // https://www.freepik.com/free-vector/isolated-fashion-style-icon-set_5753992.htm#query=90%20s%20icons&position=0&from_view=search
       this.memoryCards = [
         {
           img: 'js/components/my-memory-game-flipping-card/images/0.png'
