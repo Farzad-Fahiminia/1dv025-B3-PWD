@@ -21,10 +21,19 @@
        color: #fff;
      }
 
+     #button-alternatives {
+       cursor: pointer;
+       margin-bottom: 10px;
+     }
+
    </style>
    <div class="container">
-     <form id="memory-form">
-    </form>
+     <div id="button-alternatives">
+       <button class="button-mode" id="easy-button">Easy</button>
+       <button class="button-mode" id="medium-button">Medium</button>
+       <button class="button-mode" id="hard-button">Hard</button>
+     </div>
+     <form id="memory-form"></form>
    </div>
  `
 
@@ -101,36 +110,70 @@
           img: 'js/components/my-memory-game-flipping-card/images/7.png'
         }
       ]
+      this.memoryLevel = 0
       this.memoryCards.sort(() => 0.5 - Math.random())
+      this.card = ''
+      this.cardFrontFace = ''
+      this.memoryForm = this.shadowRoot.querySelector('#memory-form')
       this.cardsPicked = []
-      this.fillMemoryBoard()
+
+      this.easyButton = this.shadowRoot.querySelector('#easy-button')
+      this.easyButton.addEventListener('click', (event) => {
+        this.memoryForm.innerHTML = ''
+        this.memoryLevel = 4
+        this.fillMemoryBoard(this.memoryLevel)
+      })
+
+      this.mediumButton = this.shadowRoot.querySelector('#medium-button')
+      this.mediumButton.addEventListener('click', (event) => {
+        this.memoryForm.innerHTML = ''
+        this.memoryLevel = 8
+        this.fillMemoryBoard(this.memoryLevel)
+      })
+
+      this.hardButton = this.shadowRoot.querySelector('#hard-button')
+      this.hardButton.addEventListener('click', (event) => {
+        this.memoryForm.innerHTML = ''
+        this.memoryLevel = 16
+        this.fillMemoryBoard(this.memoryLevel)
+      })
+
+      // this.card.addEventListener('click', (event) => {
+      //   this.matchCards()
+      // })
     }
 
-    fillMemoryBoard () {
-      for (let i = 0; i < this.memoryCards.length; i++) {
+    fillMemoryBoard (memoryLevel) {
+      for (let i = 0; i < memoryLevel; i++) {
         // console.log(this.memoryCards[i].img)
         // console.log('-----------', this.memoryCards.sort(() => 0.5 - Math.random()))
-        const card = document.createElement('my-memory-game-flipping-card')
-        const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
-        cardFrontFace.style.backgroundImage = `url('${this.memoryCards[i].img}')`
+        this.card = document.createElement('my-memory-game-flipping-card')
+        this.cardFrontFace = this.card.shadowRoot.querySelector('.flip-card-front')
+        this.cardFrontFace.style.backgroundImage = `url('${this.memoryCards[i].img}')`
         // cardFrontFace.style.backgroundColor = 'red'
-        const memoryForm = this.shadowRoot.querySelector('#memory-form')
+        // this.memoryForm = this.shadowRoot.querySelector('#memory-form')
         // const image = document.createElement('img')
         // image.setAttribute('src', this.memoryCards[i].img)
         // cardFrontFace.append(image)
-        memoryForm.appendChild(card)
+        this.memoryForm.appendChild(this.card)
         // console.log(card.shadowRoot.lastElementChild.lastElementChild.lastElementChild)
         // document.body.style.backgroundImage = "url('img_tree.png')";
         // this.matchCards()
-        // this.cardsPicked.push(this.me)
-        // console.log(cardFrontFace.style.backgroundImage)
+        // console.log(memoryForm)
       }
+
+      // this.cardsPicked.push(cardFrontFace.style.backgroundImage)
+      // console.log(cardFrontFace.style.backgroundImage)
+      console.log(this.cardsPicked)
     }
 
-    // matchCards () {
-    //   const cardsPicked = document.querySelectorAll('button')
-    //   console.log(cardsPicked.length)
-    //   // const cardImage = cardsPicked.shadowRoot.querySelector('.flip-card-front')
+    // matchCards (event) {
+    // //   const cardsPicked = document.querySelectorAll('button')
+    // //   console.log(cardsPicked.length)
+    // //   // const cardImage = cardsPicked.shadowRoot.querySelector('.flip-card-front')
+    //   console.log('Event', event)
+    //   this.cardsPicked.push(this.cardFrontFace.style.backgroundImage)
+    //   console.log(this.cardsPicked)
     // }
   }
 )
