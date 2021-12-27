@@ -15,6 +15,7 @@
     .flip-card {
       cursor: pointer;
       outline: none;
+      margin: 5px;
       padding: 0;
       background-color: transparent;
       width: 120px;
@@ -133,6 +134,11 @@
       } else {
         this.flipCardInner.style.transform = 'rotateY(0deg)'
       }
+
+      setTimeout(() => {
+        console.log('SET TIMEOUT???')
+        this.flipCardInner.style.transform = 'rotateY(0deg)'
+      }, 5000)
     }
   }
 )

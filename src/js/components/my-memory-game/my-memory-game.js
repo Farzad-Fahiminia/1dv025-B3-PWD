@@ -102,6 +102,7 @@
         }
       ]
       this.memoryCards.sort(() => 0.5 - Math.random())
+      this.cardsPicked = []
       this.fillMemoryBoard()
     }
 
@@ -120,16 +121,27 @@
         memoryForm.appendChild(card)
         // console.log(card.shadowRoot.lastElementChild.lastElementChild.lastElementChild)
         // document.body.style.backgroundImage = "url('img_tree.png')";
+        // this.matchCards()
+        // this.cardsPicked.push(this.me)
+        // console.log(cardFrontFace.style.backgroundImage)
       }
     }
+
+    // matchCards () {
+    //   const cardsPicked = document.querySelectorAll('button')
+    //   console.log(cardsPicked.length)
+    //   // const cardImage = cardsPicked.shadowRoot.querySelector('.flip-card-front')
+    // }
   }
 )
 
 // Todo list------------------
-// Ta fram 8 bilder till memory.
 // Kolla om korten matchar och göm dem.
 // Om brädan är tom så är spelet över, börja om-knapp.
-// Spelet ska kunna köras i tre olika svårighetsgrader.
+// Spelet ska kunna köras i tre olika svårighetsgrader. 2x2, 4x2, 4x4.
+// Extrafunktion: Sätta en timer för att ta tid på spelet.
 
 // Done ----------------------
 // Slumpa fram korten.
+// Ta fram 8 bilder till memory.
+// Vänd tillbaka korten efter några sekunder.
