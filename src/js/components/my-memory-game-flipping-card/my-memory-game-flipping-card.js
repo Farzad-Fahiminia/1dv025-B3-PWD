@@ -135,10 +135,10 @@
         this.flipCardInner.style.transform = 'rotateY(0deg)'
       }
 
-      setTimeout(() => {
-        console.log('SET TIMEOUT???')
-        this.flipCardInner.style.transform = 'rotateY(0deg)'
-      }, 5000)
+      // setTimeout(() => {
+      //   console.log('SET TIMEOUT???')
+      //   this.flipCardInner.style.transform = 'rotateY(0deg)'
+      // }, 5000)
     }
   }
 )

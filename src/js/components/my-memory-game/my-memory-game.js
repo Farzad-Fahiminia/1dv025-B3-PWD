@@ -22,18 +22,26 @@
      }
 
      #button-alternatives {
-       cursor: pointer;
        margin-bottom: 10px;
      }
 
+     .button-mode {
+       cursor: pointer;
+       background-color: #ffffff;
+       border-style: none;
+       border-radius: 5px;
+       padding: 5px 10px;
+     }
+
    </style>
+
    <div class="container">
      <div id="button-alternatives">
        <button class="button-mode" id="easy-button">Easy</button>
        <button class="button-mode" id="medium-button">Medium</button>
        <button class="button-mode" id="hard-button">Hard</button>
      </div>
-     <form id="memory-form"></form>
+     <form id="memory-form">Choose a level to begin. Let's Play!</form>
    </div>
  `
 
@@ -65,16 +73,7 @@
           img: 'js/components/my-memory-game-flipping-card/images/0.png'
         },
         {
-          img: 'js/components/my-memory-game-flipping-card/images/0.png'
-        },
-        {
           img: 'js/components/my-memory-game-flipping-card/images/1.png'
-        },
-        {
-          img: 'js/components/my-memory-game-flipping-card/images/1.png'
-        },
-        {
-          img: 'js/components/my-memory-game-flipping-card/images/2.png'
         },
         {
           img: 'js/components/my-memory-game-flipping-card/images/2.png'
@@ -83,88 +82,65 @@
           img: 'js/components/my-memory-game-flipping-card/images/3.png'
         },
         {
-          img: 'js/components/my-memory-game-flipping-card/images/3.png'
-        },
-        {
-          img: 'js/components/my-memory-game-flipping-card/images/4.png'
-        },
-        {
           img: 'js/components/my-memory-game-flipping-card/images/4.png'
         },
         {
           img: 'js/components/my-memory-game-flipping-card/images/5.png'
         },
         {
-          img: 'js/components/my-memory-game-flipping-card/images/5.png'
-        },
-        {
           img: 'js/components/my-memory-game-flipping-card/images/6.png'
-        },
-        {
-          img: 'js/components/my-memory-game-flipping-card/images/6.png'
-        },
-        {
-          img: 'js/components/my-memory-game-flipping-card/images/7.png'
         },
         {
           img: 'js/components/my-memory-game-flipping-card/images/7.png'
         }
       ]
-      this.memoryLevel = 0
-      this.memoryCards.sort(() => 0.5 - Math.random())
       this.card = ''
       this.cardFrontFace = ''
       this.memoryForm = this.shadowRoot.querySelector('#memory-form')
-      this.cardsPicked = []
+      // this.cardsPicked = []
 
       this.easyButton = this.shadowRoot.querySelector('#easy-button')
       this.easyButton.addEventListener('click', (event) => {
         this.memoryForm.innerHTML = ''
-        this.memoryLevel = 4
-        this.fillMemoryBoard(this.memoryLevel)
+        this.shuffleCards(2)
       })
 
       this.mediumButton = this.shadowRoot.querySelector('#medium-button')
       this.mediumButton.addEventListener('click', (event) => {
         this.memoryForm.innerHTML = ''
-        this.memoryLevel = 8
-        this.fillMemoryBoard(this.memoryLevel)
+        this.shuffleCards(4)
       })
 
       this.hardButton = this.shadowRoot.querySelector('#hard-button')
       this.hardButton.addEventListener('click', (event) => {
         this.memoryForm.innerHTML = ''
-        this.memoryLevel = 16
-        this.fillMemoryBoard(this.memoryLevel)
+        this.shuffleCards(8)
       })
-
-      // this.card.addEventListener('click', (event) => {
-      //   this.matchCards()
-      // })
     }
 
-    fillMemoryBoard (memoryLevel) {
-      for (let i = 0; i < memoryLevel; i++) {
-        // console.log(this.memoryCards[i].img)
-        // console.log('-----------', this.memoryCards.sort(() => 0.5 - Math.random()))
+    fillMemoryBoard (doubleCards) {
+      for (let i = 0; i < doubleCards.length; i++) {
         this.card = document.createElement('my-memory-game-flipping-card')
         this.cardFrontFace = this.card.shadowRoot.querySelector('.flip-card-front')
-        this.cardFrontFace.style.backgroundImage = `url('${this.memoryCards[i].img}')`
-        // cardFrontFace.style.backgroundColor = 'red'
+        this.cardFrontFace.style.backgroundImage = `url('${doubleCards[i].img}')`
         // this.memoryForm = this.shadowRoot.querySelector('#memory-form')
         // const image = document.createElement('img')
         // image.setAttribute('src', this.memoryCards[i].img)
         // cardFrontFace.append(image)
         this.memoryForm.appendChild(this.card)
-        // console.log(card.shadowRoot.lastElementChild.lastElementChild.lastElementChild)
-        // document.body.style.backgroundImage = "url('img_tree.png')";
-        // this.matchCards()
-        // console.log(memoryForm)
       }
 
       // this.cardsPicked.push(cardFrontFace.style.backgroundImage)
       // console.log(cardFrontFace.style.backgroundImage)
-      console.log(this.cardsPicked)
+      // console.log(this.cardsPicked)
+    }
+
+    shuffleCards (qtyCards) {
+      this.memoryCards.sort(() => 0.5 - Math.random())
+      const copyArr = this.memoryCards.slice(0, qtyCards)
+      const doubleCards = copyArr.concat(copyArr)
+      doubleCards.sort(() => 0.5 - Math.random())
+      this.fillMemoryBoard(doubleCards)
     }
 
     // matchCards (event) {
