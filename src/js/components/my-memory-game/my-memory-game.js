@@ -64,8 +64,6 @@
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-      // this.quantityCards = 4
-
       // Images from URL below.
       // https://www.freepik.com/free-vector/isolated-fashion-style-icon-set_5753992.htm#query=90%20s%20icons&position=0&from_view=search
       this.memoryCards = [
@@ -94,8 +92,6 @@
           img: 'js/components/my-memory-game-flipping-card/images/7.png'
         }
       ]
-      this.card = ''
-      this.cardFrontFace = ''
       this.memoryForm = this.shadowRoot.querySelector('#memory-form')
       // this.cardsPicked = []
 
@@ -119,15 +115,27 @@
     }
 
     fillMemoryBoard (doubleCards) {
+      const myArray = []
       for (let i = 0; i < doubleCards.length; i++) {
-        this.card = document.createElement('my-memory-game-flipping-card')
-        this.cardFrontFace = this.card.shadowRoot.querySelector('.flip-card-front')
-        this.cardFrontFace.style.backgroundImage = `url('${doubleCards[i].img}')`
+        const card = document.createElement('my-memory-game-flipping-card')
+        const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
+        cardFrontFace.style.backgroundImage = `url('${doubleCards[i].img}')`
         // this.memoryForm = this.shadowRoot.querySelector('#memory-form')
         // const image = document.createElement('img')
         // image.setAttribute('src', this.memoryCards[i].img)
         // cardFrontFace.append(image)
-        this.memoryForm.appendChild(this.card)
+        this.memoryForm.appendChild(card)
+        card.addEventListener('click', (event) => {
+          // console.log('Hej HEJ')
+          // console.log(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage)
+          // console.log(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage === `url("${doubleCards[i].img}")`)
+          myArray.push(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage)
+          console.log(myArray)
+          if (myArray.length === 2) {
+            console.log('2:an')
+          }
+        })
+        // console.log(myArray)
       }
 
       // this.cardsPicked.push(cardFrontFace.style.backgroundImage)
@@ -157,10 +165,10 @@
 // Todo list------------------
 // Kolla om korten matchar och göm dem.
 // Om brädan är tom så är spelet över, börja om-knapp.
-// Spelet ska kunna köras i tre olika svårighetsgrader. 2x2, 4x2, 4x4.
 // Extrafunktion: Sätta en timer för att ta tid på spelet.
 
 // Done ----------------------
 // Slumpa fram korten.
 // Ta fram 8 bilder till memory.
 // Vänd tillbaka korten efter några sekunder.
+// Spelet ska kunna köras i tre olika svårighetsgrader. 2x2, 4x2, 4x4.
