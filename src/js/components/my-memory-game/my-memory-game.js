@@ -163,7 +163,6 @@
           // console.log(myArray[0].shadowRoot.lastElementChild.lastElementChild.lastElementChild)
           if (myArray.length === 2) {
             // console.log('2:an')
-            this.gameOver()
             this.moves++
             this.movesDiv.textContent = `${this.moves} moves`
             this.memoryForm.style.pointerEvents = 'none'
@@ -196,6 +195,7 @@
               }, 1000)
             }
           }
+          this.gameOver()
         })
       }
     }
@@ -217,8 +217,10 @@
       h1Tag.textContent = 'GAME OVER!'
       for (let i = 0; i < this.memoryForm.childElementCount; i++) {
         // console.log('Loop Loop')
-        if (this.memoryForm.children[i].classList.contains('hidden')) {
+        if (this.memoryForm.children[this.memoryForm.childElementCount - 1].classList.contains('hidden')) {
+          // console.log(this.memoryForm.children[i])
           // console.log('SANT!!!')
+          this.memoryForm.innerHTML = ''
           this.memoryForm.appendChild(h1Tag)
         }
       }
