@@ -56,6 +56,7 @@
        <button class="button-mode" id="medium-button">Medium</button>
        <button class="button-mode" id="hard-button">Hard</button>
      </div>
+     <div id="moves"></div>
      <form id="memory-form"><h1>Memory Game</h1><p>Choose a level to begin. Let's Play!</p></form>
    </div>
  `
@@ -78,6 +79,9 @@
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
+
+      this.moves = 0
+      this.movesDiv = this.shadowRoot.querySelector('#moves')
 
       // Images from URL below.
       // https://www.freepik.com/free-vector/isolated-fashion-style-icon-set_5753992.htm#query=90%20s%20icons&position=0&from_view=search
@@ -116,7 +120,6 @@
         }
       ]
       this.memoryForm = this.shadowRoot.querySelector('#memory-form')
-      // this.cardsPicked = []
 
       this.easyButton = this.shadowRoot.querySelector('#easy-button')
       this.easyButton.addEventListener('click', (event) => {
@@ -160,6 +163,8 @@
           // console.log(myArray[0].shadowRoot.lastElementChild.lastElementChild.lastElementChild)
           if (myArray.length === 2) {
             console.log('2:an')
+            this.moves++
+            this.movesDiv.textContent = `${this.moves} moves`
             this.memoryForm.style.pointerEvents = 'none'
             // myArray[0].shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.pointerEvents = 'none'
             // myArray[1].shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.pointerEvents = 'none'
@@ -185,23 +190,13 @@
                 // myArray[1].shadowRoot.lastElementChild.lastElementChild.style.transform = 'rotateY(0deg)'
                 // this.flipCardInner.style.transform = 'rotateY(0deg)'
                 // flipCardInner.style.transform = 'rotateY(0deg)'
-                // flipCardInner.style.pointerEvents = 'none'
-                // myArray[0].classList.toggle('faceUp')
-                // myArray[1].classList.toggle('faceUp')
                 this.memoryForm.style.pointerEvents = 'auto'
                 myArray = []
-              }, 2000)
+              }, 1000)
             }
-            // myArray[0].classList.toggle('faceDown')
-            // myArray[1].classList.toggle('faceDown')
           }
         })
-        // console.log(myArray)
       }
-
-      // this.cardsPicked.push(cardFrontFace.style.backgroundImage)
-      // console.log(cardFrontFace.style.backgroundImage)
-      // console.log(this.cardsPicked)
     }
 
     shuffleCards (qtyCards) {
@@ -224,8 +219,8 @@
 )
 
 // Todo list------------------
-// Vänd tillbaka korten efter några sekunder.
 // Om brädan är tom så är spelet över, börja om-knapp.
+// Räkna antal försök.
 // Extrafunktion: Sätta en timer för att ta tid på spelet.
 
 // Done ----------------------
@@ -233,3 +228,4 @@
 // Ta fram 8 bilder till memory.
 // Spelet ska kunna köras i tre olika svårighetsgrader. 2x2, 4x2, 4x4.
 // Kolla om korten matchar och göm dem.
+// Vänd tillbaka korten efter några sekunder.
