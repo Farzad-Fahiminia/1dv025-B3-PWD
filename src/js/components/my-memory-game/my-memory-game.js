@@ -56,7 +56,7 @@
        <button class="button-mode" id="medium-button">Medium</button>
        <button class="button-mode" id="hard-button">Hard</button>
      </div>
-     <div id="moves"></div>
+     <div id="moves"></div><div class="timer"></div>
      <form id="memory-form"><h1>Memory Game</h1><p>Choose a level to begin. Let's Play!</p></form>
    </div>
  `
@@ -148,6 +148,7 @@
 
     fillMemoryBoard (doubleCards) {
       let myArray = []
+      this.startTimer()
       for (let i = 0; i < doubleCards.length; i++) {
         const card = document.createElement('my-memory-game-flipping-card')
         // const flipCardInner = card.shadowRoot.lastElementChild.lastElementChild
@@ -228,6 +229,7 @@
           // console.log('SANT!!!')
           this.memoryForm.innerHTML = ''
           this.memoryForm.appendChild(h1Tag)
+          this.endTimer()
         }
       }
     }
@@ -241,26 +243,33 @@
     //   console.log(this.cardsPicked)
     // }
 
-    // Timer
-    // let second = 0
-    // let minute = 0
-    // let hour = 0
-    // let timer = document.querySelector('.timer')
-    // let interval
-    // startTimer () {
-    //   interval = setInterval(function(){
-    //     timer.innerHTML = minute+ 'mins ' + second + 'secs'
-    //     second++
-    //     if (second == 60) {
-    //       minute++
-    //       second = 0
-    //     }
-    //     if (minute == 60 ) {
-    //       hour++
-    //       minute = 0
-    //     }
-    //   }, 1000)
-    // }
+    /**
+   * Start timer clock.
+   *
+   */
+    startTimer () {
+      // Reference https://stackoverflow.com/questions/41632942/how-to-measure-time-elapsed-on-javascript/41633001
+      this.startTime = new Date()
+    }
+
+    /**
+     * End timer clock.
+     *
+     */
+    endTimer () {
+      // Reference https://stackoverflow.com/questions/41632942/how-to-measure-time-elapsed-on-javascript/41633001
+      this.endTime = new Date()
+      let timeDifference = this.endTime - this.startTime // in ms
+      // strip the ms
+      timeDifference /= 1000
+
+      // get seconds
+      const seconds = Math.round(timeDifference)
+
+      const h2Tag = document.createElement('h2')
+      h2Tag.textContent = 'You did it in ' + seconds + ' seconds!'
+      this.memoryForm.appendChild(h2Tag)
+    }
   }
 )
 
