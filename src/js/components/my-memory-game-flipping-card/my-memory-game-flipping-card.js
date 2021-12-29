@@ -31,11 +31,11 @@
       width: 100%;
       height: 100%;
       text-align: center;
-      transition: transform 0.8s;
+      transition: 0.8s;
       transform-style: preserve-3d;
     }
 
-    /* Position the front and back side */
+    /* Position the back and front side */
     .flip-card-back, .flip-card-front {
       position: absolute;
       width: 100%;
@@ -45,7 +45,7 @@
       border-radius: 10px;
     }
 
-    /* Style the front side (fallback if image is missing) */
+    /* Style the back side (fallback if image is missing) */
     .flip-card-back {
       background-color: #72c4bf;
       color: #000000;
@@ -60,7 +60,7 @@
       margin: auto;
     }
 
-    /* Style the back side */
+    /* Style the front side */
     .flip-card-front {
       background-color: #fff;
       color: #1d1d1d;
@@ -82,6 +82,10 @@
       position: absolute;
       top: 0; bottom: 0; left: 0; right: 0;
       margin: auto;
+    } */
+
+    /* .flip {
+      transform: rotateY(0deg);
     } */
 
    </style>
@@ -121,24 +125,30 @@
 
       this.flipCard.addEventListener('click', (event) => {
         event.preventDefault()
-        this.flipCard.classList.toggle('.flipped')
+        if (!this.flipCard.classList.contains('flip')) {
+          this.flipCard.classList.add('flip')
+        }
         this.flipCardOnClick()
       })
     }
 
-  flipCardOnClick () {
-      // console.log(this.flipTile.classList.contains('.flipped'))
-      if (this.flipCard.classList.contains('.flipped')) {
+    flipCardOnClick () {
+      // console.log(this.flipTile.classList.contains('flip'))
+      if (this.flipCard.classList.contains('flip')) {
         // console.log(event.currentTarget)
         this.flipCardInner.style.transform = 'rotateY(180deg)'
-      } else {
-        this.flipCardInner.style.transform = 'rotateY(0deg)'
       }
 
-      // setTimeout(() => {
-      //   console.log('SET TIMEOUT???')
-      //   this.flipCardInner.style.transform = 'rotateY(0deg)'
-      // }, 5000)
+    // setTimeout(() => {
+    //   console.log('SET TIMEOUT???')
+    //   this.flipCardInner.style.transform = 'rotateY(0deg)'
+    // }, 3000)
+    }
+
+    removeFlip () {
+      console.log('REMOVE ME')
+      this.flipCardInner.style.transform = 'rotateY(0deg)'
+      this.flipCard.classList.remove('flip')
     }
   }
 )

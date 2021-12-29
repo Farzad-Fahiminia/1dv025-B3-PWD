@@ -33,6 +33,21 @@
        padding: 5px 10px;
      }
 
+     .hidden {
+       /* opacity: 0.5; */
+       visibility: hidden;
+     }
+
+     .faceUp {
+       /* pointer-events: none; */
+       transform: rotateY(180deg);
+     }
+
+     .faceDown {
+       /* pointer-events: auto; */
+       transform: rotateY(0deg);
+     }
+
    </style>
 
    <div class="container">
@@ -41,7 +56,7 @@
        <button class="button-mode" id="medium-button">Medium</button>
        <button class="button-mode" id="hard-button">Hard</button>
      </div>
-     <form id="memory-form">Choose a level to begin. Let's Play!</form>
+     <form id="memory-form"><h1>Memory Game</h1><p>Choose a level to begin. Let's Play!</p></form>
    </div>
  `
 
@@ -68,27 +83,35 @@
       // https://www.freepik.com/free-vector/isolated-fashion-style-icon-set_5753992.htm#query=90%20s%20icons&position=0&from_view=search
       this.memoryCards = [
         {
+          name: 'gameboy',
           img: 'js/components/my-memory-game-flipping-card/images/0.png'
         },
         {
+          name: 'mouth',
           img: 'js/components/my-memory-game-flipping-card/images/1.png'
         },
         {
+          name: 'lightningbolt',
           img: 'js/components/my-memory-game-flipping-card/images/2.png'
         },
         {
+          name: 'rubicscube',
           img: 'js/components/my-memory-game-flipping-card/images/3.png'
         },
         {
+          name: 'rollerskate',
           img: 'js/components/my-memory-game-flipping-card/images/4.png'
         },
         {
+          name: 'phone',
           img: 'js/components/my-memory-game-flipping-card/images/5.png'
         },
         {
+          name: 'lollipop',
           img: 'js/components/my-memory-game-flipping-card/images/6.png'
         },
         {
+          name: 'shoe',
           img: 'js/components/my-memory-game-flipping-card/images/7.png'
         }
       ]
@@ -115,24 +138,62 @@
     }
 
     fillMemoryBoard (doubleCards) {
-      const myArray = []
+      let myArray = []
       for (let i = 0; i < doubleCards.length; i++) {
         const card = document.createElement('my-memory-game-flipping-card')
+        // const flipCardInner = card.shadowRoot.lastElementChild.lastElementChild
         const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
         cardFrontFace.style.backgroundImage = `url('${doubleCards[i].img}')`
-        // this.memoryForm = this.shadowRoot.querySelector('#memory-form')
+        card.classList.add(`${doubleCards[i].name}`)
+        console.log(card)
         // const image = document.createElement('img')
         // image.setAttribute('src', this.memoryCards[i].img)
         // cardFrontFace.append(image)
         this.memoryForm.appendChild(card)
         card.addEventListener('click', (event) => {
-          // console.log('Hej HEJ')
+          // console.log(event.target.classList.value)
+          // console.log(event.target.shadowRoot.lastElementChild)
           // console.log(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage)
           // console.log(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage === `url("${doubleCards[i].img}")`)
-          myArray.push(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage)
+          myArray.push(event.target)
           console.log(myArray)
+          // console.log(myArray[0].shadowRoot.lastElementChild.lastElementChild.lastElementChild)
           if (myArray.length === 2) {
             console.log('2:an')
+            this.memoryForm.style.pointerEvents = 'none'
+            // myArray[0].shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.pointerEvents = 'none'
+            // myArray[1].shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.pointerEvents = 'none'
+            // flipCardInner.style.pointerEvents = 'auto'
+            // this.memoryForm.style.pointerEvents = 'none'
+            // återställ med this.memoryForm.style.pointerEvents = 'auto'
+            // console.log('-------', myArray[0].classList.value)
+            if (myArray[0].classList.value === myArray[1].classList.value) {
+              console.log('TRUE! Its a match!')
+              this.memoryForm.style.pointerEvents = 'auto'
+              myArray[0].classList.toggle('hidden')
+              myArray[1].classList.toggle('hidden')
+              myArray = []
+            } else {
+              setTimeout(() => {
+                console.log('SET TIMEOUT???')
+                console.log(myArray[0].shadowRoot.lastElementChild)
+                myArray[0].removeFlip()
+                myArray[1].removeFlip()
+                // myArray[1].shadowRoot.lastElementChild.classList.toggle('flip')
+                console.log(myArray[0].shadowRoot.lastElementChild)
+                // myArray[0].shadowRoot.lastElementChild.lastElementChild.style.transform = 'rotateY(0deg)'
+                // myArray[1].shadowRoot.lastElementChild.lastElementChild.style.transform = 'rotateY(0deg)'
+                // this.flipCardInner.style.transform = 'rotateY(0deg)'
+                // flipCardInner.style.transform = 'rotateY(0deg)'
+                // flipCardInner.style.pointerEvents = 'none'
+                // myArray[0].classList.toggle('faceUp')
+                // myArray[1].classList.toggle('faceUp')
+                this.memoryForm.style.pointerEvents = 'auto'
+                myArray = []
+              }, 2000)
+            }
+            // myArray[0].classList.toggle('faceDown')
+            // myArray[1].classList.toggle('faceDown')
           }
         })
         // console.log(myArray)
@@ -163,12 +224,12 @@
 )
 
 // Todo list------------------
-// Kolla om korten matchar och göm dem.
+// Vänd tillbaka korten efter några sekunder.
 // Om brädan är tom så är spelet över, börja om-knapp.
 // Extrafunktion: Sätta en timer för att ta tid på spelet.
 
 // Done ----------------------
 // Slumpa fram korten.
 // Ta fram 8 bilder till memory.
-// Vänd tillbaka korten efter några sekunder.
 // Spelet ska kunna köras i tre olika svårighetsgrader. 2x2, 4x2, 4x4.
+// Kolla om korten matchar och göm dem.
