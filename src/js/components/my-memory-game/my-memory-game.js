@@ -124,18 +124,24 @@
       this.easyButton = this.shadowRoot.querySelector('#easy-button')
       this.easyButton.addEventListener('click', (event) => {
         this.memoryForm.innerHTML = ''
+        this.moves = 0
+        this.movesDiv.textContent = ''
         this.shuffleCards(2)
       })
 
       this.mediumButton = this.shadowRoot.querySelector('#medium-button')
       this.mediumButton.addEventListener('click', (event) => {
         this.memoryForm.innerHTML = ''
+        this.moves = 0
+        this.movesDiv.textContent = ''
         this.shuffleCards(4)
       })
 
       this.hardButton = this.shadowRoot.querySelector('#hard-button')
       this.hardButton.addEventListener('click', (event) => {
         this.memoryForm.innerHTML = ''
+        this.moves = 0
+        this.movesDiv.textContent = ''
         this.shuffleCards(8)
       })
     }
