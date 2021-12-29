@@ -8,8 +8,8 @@
 /**
  * Define template.
  */
- const template = document.createElement('template')
- template.innerHTML = `
+const template = document.createElement('template')
+template.innerHTML = `
    <style>
      /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
     .flip-card {
@@ -75,24 +75,12 @@
       margin: auto;
       transform: rotateY(180deg);
     }
-
-    /* .flip-card-front img {
-      width: 90px;
-      height: auto;
-      position: absolute;
-      top: 0; bottom: 0; left: 0; right: 0;
-      margin: auto;
-    } */
-
    </style>
+      
       <button class="flip-card">
         <div class="flip-card-inner">
-          <div class="flip-card-back">
-            <!-- <img src="./images/lnu-symbol.png" alt="lnu-symbol"> -->
-          </div>
-          <div class="flip-card-front">
-            <!-- <slot></slot> -->
-          </div>
+          <div class="flip-card-back"></div>
+          <div class="flip-card-front"></div>
        </div>
       </button>
  `
@@ -100,14 +88,14 @@
 /**
  * Define custom element.
  */
- customElements.define('my-memory-game-flipping-card',
- /**
-  *
-  */
+customElements.define('my-memory-game-flipping-card',
+/**
+ *
+ */
   class extends HTMLElement {
     /**
-    * Creates an instance of the current type.
-    */
+     * Creates an instance of the current type.
+     */
     constructor () {
       super()
 
@@ -128,13 +116,20 @@
       })
     }
 
+    /**
+     * Flip card on click.
+     *
+     */
     flipCardOnClick () {
-      // console.log(this.flipTile.classList.contains('flip'))
       if (this.flipCard.classList.contains('flip')) {
         this.flipCardInner.style.transform = 'rotateY(180deg)'
       }
     }
 
+    /**
+     * Flip back card on demand.
+     *
+     */
     removeFlip () {
       this.flipCardInner.style.transform = 'rotateY(0deg)'
       this.flipCard.classList.remove('flip')
