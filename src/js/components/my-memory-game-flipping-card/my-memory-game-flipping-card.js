@@ -84,10 +84,6 @@
       margin: auto;
     } */
 
-    /* .flip {
-      transform: rotateY(0deg);
-    } */
-
    </style>
       <button class="flip-card">
         <div class="flip-card-inner">
@@ -135,18 +131,11 @@
     flipCardOnClick () {
       // console.log(this.flipTile.classList.contains('flip'))
       if (this.flipCard.classList.contains('flip')) {
-        // console.log(event.currentTarget)
         this.flipCardInner.style.transform = 'rotateY(180deg)'
       }
-
-    // setTimeout(() => {
-    //   console.log('SET TIMEOUT???')
-    //   this.flipCardInner.style.transform = 'rotateY(0deg)'
-    // }, 3000)
     }
 
     removeFlip () {
-      console.log('REMOVE ME')
       this.flipCardInner.style.transform = 'rotateY(0deg)'
       this.flipCard.classList.remove('flip')
     }

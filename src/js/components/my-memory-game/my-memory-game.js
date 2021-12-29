@@ -159,10 +159,11 @@
           // console.log(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage)
           // console.log(event.target.shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.backgroundImage === `url("${doubleCards[i].img}")`)
           myArray.push(event.target)
-          console.log(myArray)
+          // console.log(myArray)
           // console.log(myArray[0].shadowRoot.lastElementChild.lastElementChild.lastElementChild)
           if (myArray.length === 2) {
-            console.log('2:an')
+            // console.log('2:an')
+            this.gameOver()
             this.moves++
             this.movesDiv.textContent = `${this.moves} moves`
             this.memoryForm.style.pointerEvents = 'none'
@@ -173,19 +174,19 @@
             // återställ med this.memoryForm.style.pointerEvents = 'auto'
             // console.log('-------', myArray[0].classList.value)
             if (myArray[0].classList.value === myArray[1].classList.value) {
-              console.log('TRUE! Its a match!')
+              // console.log('TRUE! Its a match!')
               this.memoryForm.style.pointerEvents = 'auto'
               myArray[0].classList.toggle('hidden')
               myArray[1].classList.toggle('hidden')
               myArray = []
             } else {
               setTimeout(() => {
-                console.log('SET TIMEOUT???')
-                console.log(myArray[0].shadowRoot.lastElementChild)
+                // console.log('SET TIMEOUT???')
+                // console.log(myArray[0].shadowRoot.lastElementChild)
                 myArray[0].removeFlip()
                 myArray[1].removeFlip()
                 // myArray[1].shadowRoot.lastElementChild.classList.toggle('flip')
-                console.log(myArray[0].shadowRoot.lastElementChild)
+                // console.log(myArray[0].shadowRoot.lastElementChild)
                 // myArray[0].shadowRoot.lastElementChild.lastElementChild.style.transform = 'rotateY(0deg)'
                 // myArray[1].shadowRoot.lastElementChild.lastElementChild.style.transform = 'rotateY(0deg)'
                 // this.flipCardInner.style.transform = 'rotateY(0deg)'
@@ -207,6 +208,22 @@
       this.fillMemoryBoard(doubleCards)
     }
 
+    gameOver () {
+      // console.log('GAME OVER?')
+      // console.log(this.memoryForm.childElementCount)
+      // console.log(this.memoryForm.children)
+      // console.log(this.memoryForm.children[0].classList.contains('hidden'))
+      const h1Tag = document.createElement('h1')
+      h1Tag.textContent = 'GAME OVER!'
+      for (let i = 0; i < this.memoryForm.childElementCount; i++) {
+        // console.log('Loop Loop')
+        if (this.memoryForm.children[i].classList.contains('hidden')) {
+          // console.log('SANT!!!')
+          this.memoryForm.appendChild(h1Tag)
+        }
+      }
+    }
+
     // matchCards (event) {
     // //   const cardsPicked = document.querySelectorAll('button')
     // //   console.log(cardsPicked.length)
@@ -215,12 +232,32 @@
     //   this.cardsPicked.push(this.cardFrontFace.style.backgroundImage)
     //   console.log(this.cardsPicked)
     // }
+
+    // Timer
+    // let second = 0
+    // let minute = 0
+    // let hour = 0
+    // let timer = document.querySelector('.timer')
+    // let interval
+    // startTimer () {
+    //   interval = setInterval(function(){
+    //     timer.innerHTML = minute+ 'mins ' + second + 'secs'
+    //     second++
+    //     if (second == 60) {
+    //       minute++
+    //       second = 0
+    //     }
+    //     if (minute == 60 ) {
+    //       hour++
+    //       minute = 0
+    //     }
+    //   }, 1000)
+    // }
   }
 )
 
 // Todo list------------------
 // Om brädan är tom så är spelet över, börja om-knapp.
-// Räkna antal försök.
 // Extrafunktion: Sätta en timer för att ta tid på spelet.
 
 // Done ----------------------
@@ -229,3 +266,4 @@
 // Spelet ska kunna köras i tre olika svårighetsgrader. 2x2, 4x2, 4x4.
 // Kolla om korten matchar och göm dem.
 // Vänd tillbaka korten efter några sekunder.
+// Räkna antal försök.
