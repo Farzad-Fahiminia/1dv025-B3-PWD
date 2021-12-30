@@ -8,8 +8,8 @@
 /**
  * Define template.
  */
- const template = document.createElement('template')
- template.innerHTML = `
+const template = document.createElement('template')
+template.innerHTML = `
    <style>
      .container {
        margin: auto;
@@ -53,14 +53,14 @@
 /**
  * Define custom element.
  */
- customElements.define('my-memory-game',
- /**
-  *
-  */
+customElements.define('my-memory-game',
+/**
+ *
+ */
   class extends HTMLElement {
     /**
-    * Creates an instance of the current type.
-    */
+     * Creates an instance of the current type.
+     */
     constructor () {
       super()
 
@@ -152,29 +152,18 @@
           myArray.push(event.target)
           // console.log(myArray)
           if (myArray.length === 2) {
-            // console.log('2:an')
             this.moves++
-            // this.movesDiv.textContent = `${this.moves} moves`
             this.memoryForm.style.pointerEvents = 'none'
-            // myArray[0].shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.pointerEvents = 'none'
-            // myArray[1].shadowRoot.lastElementChild.lastElementChild.lastElementChild.style.pointerEvents = 'none'
-            // flipCardInner.style.pointerEvents = 'auto'
-            // this.memoryForm.style.pointerEvents = 'none'
             if (myArray[0].classList.value === myArray[1].classList.value) {
-              // console.log('TRUE! Its a match!')
+              // console.log('Its a match!')
               myArray[0].classList.toggle('hidden')
               myArray[1].classList.toggle('hidden')
               this.memoryForm.style.pointerEvents = 'auto'
               myArray = []
             } else {
               setTimeout(() => {
-                // console.log('SET TIMEOUT???')
                 myArray[0].removeFlip()
                 myArray[1].removeFlip()
-                // myArray[0].shadowRoot.lastElementChild.lastElementChild.style.transform = 'rotateY(0deg)'
-                // myArray[1].shadowRoot.lastElementChild.lastElementChild.style.transform = 'rotateY(0deg)'
-                // this.flipCardInner.style.transform = 'rotateY(0deg)'
-                // flipCardInner.style.transform = 'rotateY(0deg)'
                 this.memoryForm.style.pointerEvents = 'auto'
                 myArray = []
               }, 1000)
@@ -185,6 +174,11 @@
       }
     }
 
+    /**
+     * Shuffle and duplicate cards.
+     *
+     * @param {number} qtyCards - Number of cards.
+     */
     shuffleCards (qtyCards) {
       this.memoryCards.sort(() => 0.5 - Math.random())
       const copyArr = this.memoryCards.slice(0, qtyCards)
@@ -216,9 +210,9 @@
     // }
 
     /**
-   * Start timer clock.
-   *
-   */
+     * Start timer clock.
+     *
+     */
     startTimer () {
       // Reference https://stackoverflow.com/questions/41632942/how-to-measure-time-elapsed-on-javascript/41633001
       this.startTime = new Date()
