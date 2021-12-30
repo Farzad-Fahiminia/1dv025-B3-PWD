@@ -13,11 +13,11 @@ template.innerHTML = `
    <style>
      .container {
        margin: auto;
-       padding: 10px;
+       padding: 0px;
        max-width: 400px;
        height: 600px;
        font-size: 1em;
-       background-color: orange;
+       background-color: #ffffff;
      }
 
      .chat-content {
@@ -26,8 +26,8 @@ template.innerHTML = `
        overflow-y: visibility;
        margin-bottom: 40px;
        padding: 10px;
-       background-color: #fff;
-       height: 600px;
+       background-color: #dfe9ed;
+       height: 500px;
        position: relative;
        word-break: break-word;
        hyphens: auto;
@@ -36,27 +36,38 @@ template.innerHTML = `
      .input-section {
       display: block;
       clear: both;
-      background-color: red;
+      /* background-color: red; */
       position: absolute;
-      bottom: 0;
+      top: 540px;
+      /* bottom: 0; */
      }
 
      #text-field {
        width: 290px;
        height: 40px;
+       border: none;
+       font-size: 1em;
      }
+
+     #text-field:focus, input:focus {
+       outline: none;
+      }
 
      .button-send {
        cursor: pointer;
-       padding: 13px 26px;
+       /* background-color: #111111; */
+       font-size: 1em;
+       padding: 13px 20px;
+       border-radius: 10px;
+       border: none;
      }
 
      .chat-bubbles {
-       background-color: blue;
+       background-color: #111111;
        color: #ffffff;
        width: fit-content;
        padding: 0.5px 20px 0.5px 20px;
-       border-radius: 10px;
+       border-radius: 20px;
        line-height: 0.8em;
        margin-bottom: 3px;
      }
@@ -69,7 +80,7 @@ template.innerHTML = `
        <p>Vem är det som skriver? sdjfghkdjsfhgskjdhfgkljsdhfgkjlsdhfkjghklsdjfgkjsdhfkjlsdfh</p>
        <div>
      <div class="input-section">
-       <input type="text" id="text-field" value="" required autofocus></input>
+       <input type="text" id="text-field" value="" placeholder="Type a message..." required autofocus></input>
        <button class="button-send" type="submit">Send</button>
      </div>
    </div>
