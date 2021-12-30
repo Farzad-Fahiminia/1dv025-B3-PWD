@@ -193,9 +193,11 @@ customElements.define('my-memory-game',
       h1Tag.textContent = 'GAME OVER!'
       for (let i = 0; i < this.memoryForm.childElementCount; i++) {
         if (this.memoryForm.children[this.memoryForm.childElementCount - 1].classList.contains('hidden')) {
-          this.memoryForm.innerHTML = ''
-          this.memoryForm.appendChild(h1Tag)
-          this.endTimer()
+          setTimeout(() => {
+            this.memoryForm.innerHTML = ''
+            this.memoryForm.appendChild(h1Tag)
+            this.endTimer()
+          }, 1000)
         }
       }
     }
