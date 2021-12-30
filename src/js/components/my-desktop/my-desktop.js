@@ -252,6 +252,7 @@ customElements.define('my-desktop',
 
     openAppWindow (title) {
       const appWindow = document.createElement('my-app-window')
+      const myAppWindow = appWindow.shadowRoot.querySelector('#my-app-window')
       const heading = appWindow.shadowRoot.querySelector('#my-app-window-header')
       heading.textContent = title
       this.myDesktop.append(appWindow)
@@ -260,6 +261,15 @@ customElements.define('my-desktop',
       if (title === 'Memory Game') {
         const memoryGame = document.createElement('my-memory-game')
         appWindow.shadowRoot.lastElementChild.lastElementChild.append(memoryGame)
+      }
+
+      if (title === 'Chat App') {
+        const chatApp = document.createElement('my-chat-app')
+        appWindow.shadowRoot.lastElementChild.lastElementChild.style.width = '400px'
+        myAppWindow.style.width = '400px'
+        myAppWindow.style.height = '640px'
+        appWindow.shadowRoot.lastElementChild.lastElementChild.append(chatApp)
+        console.log(myAppWindow)
       }
 
       appWindow.addEventListener('mousedown', (event) => {

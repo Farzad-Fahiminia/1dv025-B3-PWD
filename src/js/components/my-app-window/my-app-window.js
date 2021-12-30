@@ -20,11 +20,12 @@ template.innerHTML = `
        box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.5);
        border-radius: 7px;
        width: 600px;
-       height: 600px;
+       height: 620px;
        margin: 0;
        padding: 0;
        font-size: 1em;
        color: #fff;
+       overflow: hidden;
      }
 
      #my-app-window-header {
