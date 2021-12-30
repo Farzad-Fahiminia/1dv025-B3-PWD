@@ -75,13 +75,17 @@ template.innerHTML = `
    </style>
 
    <div class="container">
+     <div class ="chat-wrapper">
      <div class="chat-content">
        <p>Fungerar detta?</p>
-       <p>Vem är det som skriver? sdjfghkdjsfhgskjdhfgkljsdhfgkjlsdhfkjghklsdjfgkjsdhfkjlsdfh</p>
-       <div>
+       <p>Vem är det som skriver? Vem är det som skriver? Vem är det som skriver? Vem är det som skriver? Vem är det som skriver? Vem är det som skriver?</p>
+     <div>
      <div class="input-section">
-       <input type="text" id="text-field" value="" placeholder="Type a message..." required autofocus></input>
-       <button class="button-send" type="submit">Send</button>
+       <form>
+        <input type="text" id="text-field" value="" placeholder="Type a message..." required autofocus></input>
+        <button class="button-send" type="submit">Send</button>
+      </form>
+     </div>
      </div>
    </div>
  `
@@ -106,6 +110,7 @@ customElements.define('my-chat-app',
         .appendChild(template.content.cloneNode(true))
 
       this.chatContent = this.shadowRoot.querySelector('.chat-content')
+      this.chatContent.style.overflow = 'scroll'
       this.message = this.shadowRoot.querySelector('#text-field')
       // this.pTag = document.createElement('p')
       // this.chatContent.appendChild(this.pTag)
@@ -113,21 +118,69 @@ customElements.define('my-chat-app',
       this.sendButton = this.shadowRoot.querySelector('.button-send')
       this.sendButton.addEventListener('click', (event) => {
         event.preventDefault()
-        this.chatContentMetod()
-        this.message.value = ''
+        // this.chatContentMetod()
         this.message.focus()
+        this.webSucker()
+        this.message.value = ''
       })
+
+      // this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket')
+      // this.serverData = {
+      //   type: 'message',
+      //   data: `${this.message.value}`,
+      //   username: 'TestName',
+      //   channel: 'my, not so secret, channel',
+      //   key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
+      // }
+
+      // this.websocket.addEventListener('open', (event) => {
+      //   this.websocket.send(JSON.stringify(this.serverData))
+      // })
+      // this.websocket.addEventListener('message', (event) => {
+      //   console.log(event.data)
+      // })
+      this.webSucker()
     }
 
-    chatContentMetod () {
-      // console.log(this.message.value)
-      this.pTag = document.createElement('p')
-      this.pTag.textContent = this.message.value
-      // this.chatContent.appendChild(this.pTag)
-      this.divTag = document.createElement('div')
-      this.divTag.appendChild(this.pTag)
-      this.divTag.setAttribute('class', 'chat-bubbles')
-      this.chatContent.appendChild(this.divTag)
+    webSucker () {
+      const websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
+      const serverData = {
+        type: 'message',
+        data: `${this.message.value}`,
+        username: 'TestName',
+        channel: 'my, not so secret, channel',
+        key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
+      }
+
+      websocket.addEventListener('open', (event) => {
+        websocket.send(JSON.stringify(serverData))
+      })
+      websocket.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data)
+        console.log(data.username)
+        console.log(data.data)
+        console.log(event.data)
+        // console.log(event.data.username)
+
+        if (data.data !== '') {
+          this.pTag = document.createElement('p')
+          this.pTag.textContent = `${data.username}: ${data.data}`
+          this.divTag = document.createElement('div')
+          this.divTag.appendChild(this.pTag)
+          this.divTag.setAttribute('class', 'chat-bubbles')
+          this.chatContent.appendChild(this.divTag)
+        }
+      })
     }
+    // chatContentMetod () {
+    //   // console.log(this.message.value)
+    //   this.pTag = document.createElement('p')
+    //   this.pTag.textContent = this.message.value
+    //   // this.chatContent.appendChild(this.pTag)
+    //   this.divTag = document.createElement('div')
+    //   this.divTag.appendChild(this.pTag)
+    //   this.divTag.setAttribute('class', 'chat-bubbles')
+    //   this.chatContent.appendChild(this.divTag)
+    // }
   }
 )
