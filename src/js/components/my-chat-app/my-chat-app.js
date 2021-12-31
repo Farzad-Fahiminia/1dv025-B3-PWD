@@ -23,7 +23,7 @@ template.innerHTML = `
      .chat-content {
        display: block;
        clear: both;
-       overflow-y: hidden;
+       /* overflow-y: hidden; */
        margin-bottom: 40px;
        padding: 10px;
        background-color: #dfe9ed;
@@ -45,7 +45,7 @@ template.innerHTML = `
        width: 275px;
        height: 40px;
        border: none;
-       font-size: 1em;
+       font-size: 0.8em;
        margin-left: 15px;
      }
 
@@ -55,11 +55,19 @@ template.innerHTML = `
 
      .button-send {
        cursor: pointer;
-       /* background-color: #111111; */
-       font-size: 1em;
+       background-color: #00a9de;
+       color: #ffffff;
+       font-size: 0.8em;
        padding: 13px 20px;
-       border-radius: 10px;
+       border-radius: 25px;
        border: none;
+     }
+
+     .button-send:hover {
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+      -webkit-transition: all 0.1s;
+       -o-transition: all 0.1s;
+       transition: all 0.1s;
      }
 
      .chat-bubbles {
@@ -73,8 +81,10 @@ template.innerHTML = `
        padding: 0.5px 20px 0.5px 20px;
        border-radius: 20px;
        line-height: 1.2em;
-       margin-bottom: 3px;
+       margin-bottom: 5px;
+       margin-bottom: 5px;
        float: left;
+       text-align: left;
      }
 
      .chat-bubbles-me {
@@ -88,19 +98,19 @@ template.innerHTML = `
        padding: 0.5px 20px 0.5px 20px;
        border-radius: 20px;
        line-height: 1.2em;
-       margin-bottom: 3px;
+       margin-bottom: 5px;
+       margin-bottom: 5px;
        float: right;
+       text-align: left;
      }
 
      .server {
        display: block;
        clear: both;
-       /* background-color: #f7f7f7; */
        font-size: 0.75em;
        color: #8b8b8b;
        width: fit-content;
        padding: 0.5px 20px 0.5px 20px;
-       /* border-radius: 20px; */
        line-height: 0.8em;
        margin-bottom: 3px;
        margin: 0 auto;
@@ -151,30 +161,19 @@ customElements.define('my-chat-app',
         event.preventDefault()
         // this.chatContentMetod()
         this.message.focus()
-        this.webSucker()
+        this.connectSocket()
         this.message.value = ''
       })
 
-      // this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket')
-      // this.serverData = {
-      //   type: 'message',
-      //   data: `${this.message.value}`,
-      //   username: 'TestName',
-      //   channel: 'my, not so secret, channel',
-      //   key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
-      // }
-
-      // this.websocket.addEventListener('open', (event) => {
-      //   this.websocket.send(JSON.stringify(this.serverData))
-      // })
+      this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
       // this.websocket.addEventListener('message', (event) => {
       //   console.log(event.data)
       // })
-      this.webSucker()
+      this.messageSocket()
     }
 
-    webSucker () {
-      const websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
+    connectSocket () {
+      this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
       const serverData = {
         type: 'message',
         data: `${this.message.value}`,
@@ -183,43 +182,64 @@ customElements.define('my-chat-app',
         key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
       }
 
-      websocket.addEventListener('open', (event) => {
-        websocket.send(JSON.stringify(serverData))
+      this.websocket.addEventListener('open', (event) => {
+        this.websocket.send(JSON.stringify(serverData))
       })
-      websocket.addEventListener('message', (event) => {
+    }
+
+    messageSocket () {
+      // const websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
+      // const serverData = {
+      //   type: 'message',
+      //   data: `${this.message.value}`,
+      //   username: 'TestName',
+      //   channel: 'my, not so secret, channel',
+      //   key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
+      // }
+
+      // websocket.addEventListener('open', (event) => {
+      //   websocket.send(JSON.stringify(serverData))
+      // })
+      // this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
+      this.websocket.addEventListener('message', (event) => {
         const data = JSON.parse(event.data)
         // console.log(data.username)
         // console.log(data.data)
         console.log(event.data)
 
         if (data.data !== '' && data.username !== 'The Server' && data.username !== 'TestName') {
-          this.pTag = document.createElement('p')
-          this.pTag.textContent = `${data.username}: ${data.data}`
-          this.divTag = document.createElement('div')
-          this.divTag.appendChild(this.pTag)
-          this.divTag.setAttribute('class', 'chat-bubbles')
-          this.chatContent.appendChild(this.divTag)
+          const pTag = document.createElement('p')
+          pTag.textContent = `${data.username}: ${data.data}`
+          const divTag = document.createElement('div')
+          divTag.appendChild(pTag)
+          divTag.setAttribute('class', 'chat-bubbles')
+          this.chatContent.appendChild(divTag)
         }
 
         if (data.data !== '' && data.username === 'TestName') {
-          this.pTag = document.createElement('p')
-          this.pTag.textContent = `${data.username}: ${data.data}`
-          this.divTag = document.createElement('div')
-          this.divTag.appendChild(this.pTag)
-          this.divTag.setAttribute('class', 'chat-bubbles-me')
-          this.chatContent.appendChild(this.divTag)
+          const pTag = document.createElement('p')
+          pTag.textContent = `${data.username}: ${data.data}`
+          const divTag = document.createElement('div')
+          divTag.appendChild(pTag)
+          divTag.setAttribute('class', 'chat-bubbles-me')
+          this.chatContent.appendChild(divTag)
         }
 
         if (data.data !== '' && data.username === 'The Server') {
-          this.pTag = document.createElement('p')
-          this.pTag.textContent = `${data.username}: ${data.data}`
-          this.divTag = document.createElement('div')
-          this.divTag.appendChild(this.pTag)
-          this.divTag.setAttribute('class', 'server')
-          this.chatContent.appendChild(this.divTag)
+          const pTag = document.createElement('p')
+          pTag.textContent = `${data.username}: ${data.data}`
+          const divTag = document.createElement('div')
+          divTag.appendChild(pTag)
+          divTag.setAttribute('class', 'server')
+          this.chatContent.appendChild(divTag)
         }
       })
     }
+    
+    // disconnectedCallBack () {
+    //   this.websocket.close()
+    // }
+
     // chatContentMetod () {
     //   // console.log(this.message.value)
     //   this.pTag = document.createElement('p')
