@@ -181,10 +181,20 @@ customElements.define('my-app-window',
       }
     }
 
+    /**
+     * Method for changing z-index on windows.
+     * This will help setting focus on clicked windows.
+     *
+     * @param {number} zIndex - Z-index number.
+     */
     changeZIndex (zIndex) {
       this.myAppWindow.style.zIndex = zIndex
     }
 
+    /**
+     * This will close and remove window.
+     *
+     */
     closeAppWindow () {
       this.remove()
     }

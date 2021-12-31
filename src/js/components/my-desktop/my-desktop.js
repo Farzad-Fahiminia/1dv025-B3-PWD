@@ -211,12 +211,12 @@ template.innerHTML = `
  */
 customElements.define('my-desktop',
   /**
-  *
-  */
+   *
+   */
   class extends HTMLElement {
     /**
-    * Creates an instance of the current type.
-    */
+     * Creates an instance of the current type.
+     */
     constructor () {
       super()
 
@@ -283,6 +283,11 @@ customElements.define('my-desktop',
       })
     }
 
+    /**
+     * This will set the whole desktop background to Matrix mode.
+     * Easter egg.
+     *
+     */
     flipMatrixOnClick () {
       if (this.myDesktop.firstElementChild.id === 'followTheWhiteRabbit') {
         const canvas = document.createElement('canvas')

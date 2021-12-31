@@ -23,11 +23,9 @@ template.innerHTML = `
      .chat-content {
        display: block;
        clear: both;
-       /* overflow-y: hidden; */
-       margin-bottom: 40px;
        padding: 10px;
        background-color: #dfe9ed;
-       height: 500px;
+       height: 580px;
        position: relative;
        word-break: break-word;
        hyphens: auto;
@@ -37,8 +35,12 @@ template.innerHTML = `
       display: block;
       clear: both;
       position: absolute;
-      top: 575px;
+      top: 556px;
       /* bottom: 0; */
+      padding: 20px 15px 20px 11px;
+      background-color: rgba(0, 0, 0, 0.7);
+       -webkit-backdrop-filter: blur(50px);
+       backdrop-filter: blur(50px);
      }
 
      #text-field {
@@ -153,25 +155,24 @@ customElements.define('my-chat-app',
       this.chatContent = this.shadowRoot.querySelector('.chat-content')
       this.chatContent.style.overflowY = 'scroll'
       this.message = this.shadowRoot.querySelector('#text-field')
-      // this.pTag = document.createElement('p')
-      // this.chatContent.appendChild(this.pTag)
-      // this.pTag.appendChild(this.message.value)
+
       this.sendButton = this.shadowRoot.querySelector('.button-send')
       this.sendButton.addEventListener('click', (event) => {
         event.preventDefault()
-        // this.chatContentMetod()
         this.message.focus()
         this.connectSocket()
         this.message.value = ''
       })
 
       this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
-      // this.websocket.addEventListener('message', (event) => {
-      //   console.log(event.data)
-      // })
+
       this.messageSocket()
     }
 
+    /**
+     * This will establish connection to server.
+     *
+     */
     connectSocket () {
       this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
       const serverData = {
@@ -187,68 +188,39 @@ customElements.define('my-chat-app',
       })
     }
 
+    /**
+     * This establish messages to be sent and recieved.
+     *
+     */
     messageSocket () {
-      // const websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
-      // const serverData = {
-      //   type: 'message',
-      //   data: `${this.message.value}`,
-      //   username: 'TestName',
-      //   channel: 'my, not so secret, channel',
-      //   key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
-      // }
-
-      // websocket.addEventListener('open', (event) => {
-      //   websocket.send(JSON.stringify(serverData))
-      // })
-      // this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
       this.websocket.addEventListener('message', (event) => {
         const data = JSON.parse(event.data)
         // console.log(data.username)
         // console.log(data.data)
         console.log(event.data)
 
+        const pTag = document.createElement('p')
+        const divTag = document.createElement('div')
+        divTag.appendChild(pTag)
+
         if (data.data !== '' && data.username !== 'The Server' && data.username !== 'TestName') {
-          const pTag = document.createElement('p')
           pTag.textContent = `${data.username}: ${data.data}`
-          const divTag = document.createElement('div')
-          divTag.appendChild(pTag)
           divTag.setAttribute('class', 'chat-bubbles')
           this.chatContent.appendChild(divTag)
         }
 
         if (data.data !== '' && data.username === 'TestName') {
-          const pTag = document.createElement('p')
           pTag.textContent = `${data.username}: ${data.data}`
-          const divTag = document.createElement('div')
-          divTag.appendChild(pTag)
           divTag.setAttribute('class', 'chat-bubbles-me')
           this.chatContent.appendChild(divTag)
         }
 
         if (data.data !== '' && data.username === 'The Server') {
-          const pTag = document.createElement('p')
           pTag.textContent = `${data.username}: ${data.data}`
-          const divTag = document.createElement('div')
-          divTag.appendChild(pTag)
           divTag.setAttribute('class', 'server')
           this.chatContent.appendChild(divTag)
         }
       })
     }
-    
-    // disconnectedCallBack () {
-    //   this.websocket.close()
-    // }
-
-    // chatContentMetod () {
-    //   // console.log(this.message.value)
-    //   this.pTag = document.createElement('p')
-    //   this.pTag.textContent = this.message.value
-    //   // this.chatContent.appendChild(this.pTag)
-    //   this.divTag = document.createElement('div')
-    //   this.divTag.appendChild(this.pTag)
-    //   this.divTag.setAttribute('class', 'chat-bubbles')
-    //   this.chatContent.appendChild(this.divTag)
-    // }
   }
 )
