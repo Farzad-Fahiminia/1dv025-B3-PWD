@@ -135,6 +135,11 @@ customElements.define('my-memory-game',
       })
     }
 
+    /**
+     * The main part of the memory game.
+     *
+     * @param {Array} doubleCards - Cards for memory game.
+     */
     fillMemoryBoard (doubleCards) {
       let myArray = []
       this.startTimer()
@@ -143,19 +148,14 @@ customElements.define('my-memory-game',
         const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
         cardFrontFace.style.backgroundImage = `url('${doubleCards[i].img}')`
         card.classList.add(`${doubleCards[i].name}`)
-        console.log(card)
-        // const image = document.createElement('img')
-        // image.setAttribute('src', this.memoryCards[i].img)
-        // cardFrontFace.append(image)
+        // console.log(card)
         this.memoryForm.appendChild(card)
         card.addEventListener('click', (event) => {
           myArray.push(event.target)
-          // console.log(myArray)
           if (myArray.length === 2) {
             this.moves++
             this.memoryForm.style.pointerEvents = 'none'
             if (myArray[0].classList.value === myArray[1].classList.value) {
-              // console.log('Its a match!')
               myArray[0].classList.toggle('hidden')
               myArray[1].classList.toggle('hidden')
               this.memoryForm.style.pointerEvents = 'auto'
@@ -187,6 +187,10 @@ customElements.define('my-memory-game',
       this.fillMemoryBoard(doubleCards)
     }
 
+    /**
+     * Checks if the game is over and presents results.
+     *
+     */
     gameOver () {
       // console.log('GAME OVER?')
       const h1Tag = document.createElement('h1')

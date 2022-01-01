@@ -85,12 +85,12 @@ template.innerHTML = `
  */
 customElements.define('my-app-window',
   /**
-  *
-  */
+   *
+   */
   class extends HTMLElement {
     /**
-    * Creates an instance of the current type.
-    */
+     * Creates an instance of the current type.
+     */
     constructor () {
       super()
 
@@ -108,9 +108,13 @@ customElements.define('my-app-window',
       })
     }
 
-    // Code source https://www.w3schools.com/howto/howto_js_draggable.asp
-    // With additional solutions from https://stackoverflow.com/questions/48097791/how-to-keep-a-draggable-element-from-being-moved-outside-a-boundary
-    // Make the DIV element draggable:
+    /**
+     * This makes the window element draggable/moveable.
+     * Code source https://www.w3schools.com/howto/howto_js_draggable.asp.
+     * With additional solutions from https://stackoverflow.com/questions/48097791/how-to-keep-a-draggable-element-from-being-moved-outside-a-boundary.
+     *
+     * @param {*} element - The window element.
+     */
     dragElement (element) {
       const windowPadding = 0
       let rect
@@ -126,21 +130,27 @@ customElements.define('my-app-window',
       let pos3 = 0
       let pos4 = 0
       if (this.shadowRoot.querySelector('#' + element.id + '-header')) {
-      // if present, the header is where you move the DIV from:
+      // If present, the header is where you move the DIV from:
         this.shadowRoot.querySelector('#' + element.id + '-header').onmousedown = dragMouseDown
       } else {
-      // otherwise, move the DIV from anywhere inside the DIV:
+      // Otherwise, move the DIV from anywhere inside the DIV:
         element.onmousedown = dragMouseDown
       }
 
-      function dragMouseDown (e) {
-        e = e || window.event
-        e.preventDefault()
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX
-        pos4 = e.clientY
+      /**
+       * This will get the cursor position at startup.
+       *
+       * @param {object} mouseEvent - Start position of mouse.
+       */
+      function dragMouseDown (mouseEvent) {
+        mouseEvent = mouseEvent || window.event
+        mouseEvent.preventDefault()
+        console.log(mouseEvent)
+        // Get the mouse cursor position at startup:
+        pos3 = mouseEvent.clientX
+        pos4 = mouseEvent.clientY
 
-        // store the current viewport and element dimensions when a drag starts
+        // Store the current viewport and element dimensions when a drag starts
         rect = element.getBoundingClientRect()
         viewport.bottom = window.innerHeight - windowPadding
         viewport.left = windowPadding
@@ -148,34 +158,42 @@ customElements.define('my-app-window',
         viewport.top = windowPadding
 
         document.onmouseup = closeDragElement
-        // call a function whenever the cursor moves:
+        // Call a function whenever the cursor moves:
         document.onmousemove = elementDrag
       }
 
-      function elementDrag (e) {
-        e = e || window.event
-        e.preventDefault()
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX
-        pos2 = pos4 - e.clientY
-        pos3 = e.clientX
-        pos4 = e.clientY
-        
-        // check to make sure the element will be within our viewport boundary
+      /**
+       * This will calculate the position of the mouse.
+       *
+       * @param {object} mousePosition - Position of the mouse.
+       */
+      function elementDrag (mousePosition) {
+        mousePosition = mousePosition || window.event
+        mousePosition.preventDefault()
+        // Calculate the new cursor position:
+        pos1 = pos3 - mousePosition.clientX
+        pos2 = pos4 - mousePosition.clientY
+        pos3 = mousePosition.clientX
+        pos4 = mousePosition.clientY
+
+        // Check to make sure the element will be within our viewport boundary
         const newLeft = element.offsetLeft - pos1
         const newTop = element.offsetTop - pos2
 
         if (newLeft < viewport.left || newTop < viewport.top || newLeft + rect.width > viewport.right || newTop + rect.height > viewport.bottom) {
-          // the element will hit the boundary, do nothing...
+          // The element will hit the boundary, do nothing...
         } else {
-          // set the element's new position:
+          // Set the element's new position:
           element.style.top = (element.offsetTop - pos2) + 'px'
           element.style.left = (element.offsetLeft - pos1) + 'px'
         }
       }
 
+      /**
+       * This will stop moving when mouse is released.
+       *
+       */
       function closeDragElement () {
-        // stop moving when mouse button is released:
         document.onmouseup = null
         document.onmousemove = null
       }
