@@ -1,5 +1,5 @@
 /**
- * The memory game script file of the application.
+ * The chat app script file of the application.
  *
  * @author Farzad Fahiminia <ff222cb@student.lnu.se>
  * @version 1.0.0
@@ -166,7 +166,7 @@ template.innerHTML = `
        float: left;
        font-size: 0.8em;
        color: #ababab;
-       margin-top: -4px;
+       margin-top: -3px;
      }
 
      .date-stamp-right {
@@ -175,7 +175,7 @@ template.innerHTML = `
        float: right;
        font-size: 0.8em;
        color: #ababab;
-       margin-top: -4px;
+       margin-top: -3px;
      }
 
      .hidden {
@@ -188,7 +188,7 @@ template.innerHTML = `
      <div class ="chat-wrapper">
       <div class="chat-nickname">
       <form id="nicknameForm">
-        <input type="text" id="text-nickname" placeholder="Choose nickname" required></input>
+        <input type="text" id="text-nickname" placeholder="Choose nickname" required>
         <button class="button-send" id="nickname-send" type="submit">Begin chatting</button>
       </form>
       </div>
@@ -293,7 +293,6 @@ customElements.define('my-chat-app',
         const pTag = document.createElement('p')
         const divTag = document.createElement('div')
         divTag.appendChild(pTag)
-        // divTag.appendChild(dateTag)
 
         if (data.data !== '' && data.username !== 'The Server' && data.username !== this.textNickname.value) {
           pTag.textContent = `${data.username}: ${data.data}`

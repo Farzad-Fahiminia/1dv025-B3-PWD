@@ -104,13 +104,13 @@ template.innerHTML = `
       margin: auto;
     }
 
-    #mystery-app {
+    #my-cusom-app {
       position: relative;
       background-size: 60%;
       background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
      }
 
-     #mystery-app:before {
+     #my-custom-app:before {
       display: block;
       content: ' ';
       background-image: url('js/components/my-desktop/images/cloud-sun.svg');
@@ -197,11 +197,11 @@ template.innerHTML = `
 
    <div class="my-desktop">
      <div id="followTheWhiteRabbit"></div>
-     <!-- <my-memory-game></my-memory-game> -->
+     <!-- <my-custom-app></my-custom-app> -->
      <div class="app-bar">
        <div class="app tooltip" id="memory-app"><span class="tooltiptext">Memory Game</span></div>
        <div class="app tooltip" id="chat-app"><span class="tooltiptext">Chat App</span></div>
-       <div class="app tooltip" id="mystery-app"><span class="tooltiptext">Mystery App</span></div>
+       <div class="app tooltip" id="my-custom-app"><span class="tooltiptext">Mystery App</span></div>
      </div>
    </div>
  `
@@ -237,9 +237,9 @@ customElements.define('my-desktop',
         this.openAppWindow('Chat App')
       })
 
-      this.myMysteryApp = this.shadowRoot.querySelector('#mystery-app')
+      this.myMysteryApp = this.shadowRoot.querySelector('#my-custom-app')
       this.myMysteryApp.addEventListener('click', (event) => {
-        this.openAppWindow('Mystery App')
+        this.openAppWindow('Joke of the Day')
       })
 
       this.multipleAppWindow = []
@@ -269,6 +269,11 @@ customElements.define('my-desktop',
         myAppWindow.style.width = '400px'
         myAppWindow.style.height = '640px'
         appWindow.shadowRoot.lastElementChild.lastElementChild.append(chatApp)
+      }
+
+      if (title === 'Joke of the Day') {
+        const myCustomApp = document.createElement('my-custom-app')
+        appWindow.shadowRoot.lastElementChild.lastElementChild.append(myCustomApp)
       }
 
       appWindow.addEventListener('mousedown', (event) => {
