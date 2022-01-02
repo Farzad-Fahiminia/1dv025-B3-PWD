@@ -104,16 +104,16 @@ template.innerHTML = `
       margin: auto;
     }
 
-    #my-cusom-app {
+    #my-custom-app {
       position: relative;
       background-size: 60%;
-      background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+      background: linear-gradient(180deg, rgba(169,114,196,1) 0%, rgba(137,104,238,1) 100%);
      }
 
      #my-custom-app:before {
       display: block;
       content: ' ';
-      background-image: url('js/components/my-desktop/images/cloud-sun.svg');
+      background-image: url('js/components/my-desktop/images/emoji-laughing-fill.svg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: 40px 40px;
@@ -201,7 +201,7 @@ template.innerHTML = `
      <div class="app-bar">
        <div class="app tooltip" id="memory-app"><span class="tooltiptext">Memory Game</span></div>
        <div class="app tooltip" id="chat-app"><span class="tooltiptext">Chat App</span></div>
-       <div class="app tooltip" id="my-custom-app"><span class="tooltiptext">Mystery App</span></div>
+       <div class="app tooltip" id="my-custom-app"><span class="tooltiptext">Joke of the Day</span></div>
      </div>
    </div>
  `
