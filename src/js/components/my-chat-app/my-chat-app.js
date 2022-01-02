@@ -222,6 +222,8 @@ customElements.define('my-chat-app',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
+      this.websocket = ''
+
       this.chatContent = this.shadowRoot.querySelector('.chat-content')
       this.chatContent.style.overflowY = 'scroll'
       this.message = this.shadowRoot.querySelector('#text-field')
@@ -239,78 +241,72 @@ customElements.define('my-chat-app',
         event.preventDefault()
         localStorage.setItem('chat_nickname', this.textNickname.value)
         this.chatNickame.setAttribute('class', 'hidden')
+        this.connectSocket()
+        this.socketMessages()
       })
 
       this.sendButton = this.shadowRoot.querySelector('#button-submit')
       this.sendButton.addEventListener('click', (event) => {
         event.preventDefault()
         this.message.focus()
-        this.connectSocket(this.textNickname.value)
+        this.sendMessage()
         this.message.value = ''
       })
+    }
 
-      this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
-
-      this.messageSocket()
+    /**
+     * Disconnects the webSocket when application is closed.
+     *
+     */
+    disconnectedCallback () {
+      this.websocket.close()
     }
 
     /**
      * This will establish connection to server.
      *
-     * @param {string} name - Nickname of user.
      */
-    connectSocket (name) {
+    connectSocket () {
       this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
+    }
+
+    /**
+     * Sends messages to the websocket.
+     *
+     */
+    sendMessage () {
       const serverData = {
         type: 'message',
         data: `${this.message.value}`,
-        username: `${name}`,
+        username: `${this.textNickname.value}`,
         channel: 'my, not so secret, channel',
         key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
       }
 
-      this.websocket.addEventListener('open', (event) => {
+      if (this.websocket.readyState === 1) {
         this.websocket.send(JSON.stringify(serverData))
-      })
+      }
     }
 
     /**
-     * This establish messages to be sent and recieved.
+     * This establish messages to be recieved.
      *
      */
-    messageSocket () {
+    socketMessages () {
       this.websocket.addEventListener('message', (event) => {
         const data = JSON.parse(event.data)
-        // console.log(data.username)
-        // console.log(data.data)
-        console.log(event.data)
 
-        // Source of code for date: https://pretagteam.com/question/javascript-change-gethours-to-2-digit-duplicate
-        const date = new Date().toISOString().substr(0, 19).replace('T', ' ')
+        if (data.data !== '' && data.username !== 'The Server' && data.username !== this.textNickname.value) {
+          this.messageTemplate(data, 'chat-bubbles', 'date-stamp-left')
+        }
 
-        const dateTag = document.createElement('p')
+        if (data.data !== '' && data.username === this.textNickname.value) {
+          this.messageTemplate(data, 'chat-bubbles-me', 'date-stamp-right')
+        }
 
         const pTag = document.createElement('p')
         const divTag = document.createElement('div')
         divTag.appendChild(pTag)
-
-        if (data.data !== '' && data.username !== 'The Server' && data.username !== this.textNickname.value) {
-          pTag.textContent = `${data.username}: ${data.data}`
-          divTag.setAttribute('class', 'chat-bubbles')
-          dateTag.textContent = `${date}`
-          dateTag.setAttribute('class', 'date-stamp-left')
-          this.chatContent.appendChild(divTag)
-          this.chatContent.append(dateTag)
-        }
-
-        if (data.data !== '' && data.username === this.textNickname.value) {
-          pTag.textContent = `${data.username}: ${data.data}`
-          divTag.setAttribute('class', 'chat-bubbles-me')
-          dateTag.textContent = `${date}`
-          dateTag.setAttribute('class', 'date-stamp-right')
-          this.chatContent.appendChild(divTag)
-          this.chatContent.append(dateTag)
-        }
 
         if (data.data !== '' && data.username === 'The Server') {
           pTag.textContent = `${data.username}: ${data.data}`
@@ -318,6 +314,30 @@ customElements.define('my-chat-app',
           this.chatContent.appendChild(divTag)
         }
       })
+    }
+
+    /**
+     * Creates messages in chat application.
+     *
+     * @param {object} data - Object recieved from websocket.
+     * @param {string} divTagClass - Class name for the text message div element.
+     * @param {string} dateTagClass - Class name for the date div element.
+     */
+    messageTemplate (data, divTagClass, dateTagClass) {
+      // Source of code for date: https://pretagteam.com/question/javascript-change-gethours-to-2-digit-duplicate
+      const date = new Date().toISOString().substr(0, 19).replace('T', ' ')
+      const dateTag = document.createElement('p')
+
+      const pTag = document.createElement('p')
+      const divTag = document.createElement('div')
+      divTag.appendChild(pTag)
+
+      pTag.textContent = `${data.username}: ${data.data}`
+      divTag.setAttribute('class', divTagClass)
+      dateTag.textContent = `${date}`
+      dateTag.setAttribute('class', dateTagClass)
+      this.chatContent.appendChild(divTag)
+      this.chatContent.append(dateTag)
     }
   }
 )

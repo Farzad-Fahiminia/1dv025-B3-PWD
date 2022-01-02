@@ -117,6 +117,7 @@ template.innerHTML = `
       background-position: center;
       background-repeat: no-repeat;
       background-size: 40px 40px;
+      filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.8));
       height: 40px;
       width: 40px;
       position: absolute;
@@ -250,13 +251,16 @@ customElements.define('my-desktop',
       })
     }
 
+    /**
+     * Creates application and window.
+     *
+     * @param {string} title - Name of application.
+     */
     openAppWindow (title) {
       const appWindow = document.createElement('my-app-window')
       const myAppWindow = appWindow.shadowRoot.querySelector('#my-app-window')
       const heading = appWindow.shadowRoot.querySelector('#my-app-window-header')
       heading.textContent = title
-      this.myDesktop.append(appWindow)
-      this.multipleAppWindow.push(appWindow)
 
       if (title === 'Memory Game') {
         const memoryGame = document.createElement('my-memory-game')
@@ -272,10 +276,12 @@ customElements.define('my-desktop',
       }
 
       if (title === 'Joke of the Day') {
-        console.log(title)
         const myCustomApp = document.createElement('my-custom-app')
         appWindow.shadowRoot.lastElementChild.lastElementChild.append(myCustomApp)
       }
+
+      this.myDesktop.append(appWindow)
+      this.multipleAppWindow.push(appWindow)
 
       appWindow.addEventListener('mousedown', (event) => {
         this.multipleAppWindow.forEach(window => {

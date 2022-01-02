@@ -112,27 +112,27 @@ customElements.define('my-memory-game',
 
       this.easyButton = this.shadowRoot.querySelector('#easy-button')
       this.easyButton.addEventListener('click', (event) => {
-        this.memoryForm.innerHTML = ''
-        this.moves = 0
-        this.movesDiv.textContent = ''
-        this.shuffleCards(2)
+        this.numberOfCards = 2
+        this.resetGame()
+        this.shuffleCards(this.numberOfCards)
       })
 
       this.mediumButton = this.shadowRoot.querySelector('#medium-button')
       this.mediumButton.addEventListener('click', (event) => {
-        this.memoryForm.innerHTML = ''
-        this.moves = 0
-        this.movesDiv.textContent = ''
-        this.shuffleCards(4)
+        this.numberOfCards = 4
+        this.resetGame()
+        this.shuffleCards(this.numberOfCards)
       })
 
       this.hardButton = this.shadowRoot.querySelector('#hard-button')
       this.hardButton.addEventListener('click', (event) => {
-        this.memoryForm.innerHTML = ''
-        this.moves = 0
-        this.movesDiv.textContent = ''
-        this.shuffleCards(8)
+        this.numberOfCards = 8
+        this.resetGame()
+        this.shuffleCards(this.numberOfCards)
       })
+
+      this.correctNumberOfMatches = 0
+      this.numberOfCards = 0
     }
 
     /**
@@ -148,7 +148,7 @@ customElements.define('my-memory-game',
         const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
         cardFrontFace.style.backgroundImage = `url('${doubleCards[i].img}')`
         card.classList.add(`${doubleCards[i].name}`)
-        // console.log(card)
+        console.log(card)
         this.memoryForm.appendChild(card)
         card.addEventListener('click', (event) => {
           myArray.push(event.target)
@@ -159,6 +159,7 @@ customElements.define('my-memory-game',
               myArray[0].classList.toggle('hidden')
               myArray[1].classList.toggle('hidden')
               this.memoryForm.style.pointerEvents = 'auto'
+              this.correctNumberOfMatches++
               myArray = []
             } else {
               setTimeout(() => {
@@ -169,7 +170,9 @@ customElements.define('my-memory-game',
               }, 1000)
             }
           }
-          this.gameOver()
+          if (this.correctNumberOfMatches >= this.numberOfCards) {
+            this.gameOver()
+          }
         })
       }
     }
@@ -194,25 +197,23 @@ customElements.define('my-memory-game',
     gameOver () {
       const h1Tag = document.createElement('h1')
       h1Tag.textContent = 'GAME OVER!'
-      for (let i = 0; i < this.memoryForm.childElementCount; i++) {
-        if (this.memoryForm.children[this.memoryForm.childElementCount - 1].classList.contains('hidden')) {
-          setTimeout(() => {
-            this.memoryForm.innerHTML = ''
-            this.memoryForm.appendChild(h1Tag)
-            this.endTimer()
-          }, 1000)
-        }
-      }
+      setTimeout(() => {
+        this.memoryForm.innerHTML = ''
+        this.memoryForm.appendChild(h1Tag)
+        this.endTimer()
+      }, 1000)
     }
 
-    // matchCards (event) {
-    // //   const cardsPicked = document.querySelectorAll('button')
-    // //   console.log(cardsPicked.length)
-    // //   // const cardImage = cardsPicked.shadowRoot.querySelector('.flip-card-front')
-    //   console.log('Event', event)
-    //   this.cardsPicked.push(this.cardFrontFace.style.backgroundImage)
-    //   console.log(this.cardsPicked)
-    // }
+    /**
+     * Resets game.
+     *
+     */
+    resetGame () {
+      this.memoryForm.innerHTML = ''
+      this.moves = 0
+      this.movesDiv.textContent = ''
+      this.correctNumberOfMatches = 0
+    }
 
     /**
      * Start timer clock.

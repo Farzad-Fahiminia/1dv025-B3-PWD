@@ -14,7 +14,7 @@ template.innerHTML = `
      .container {
        margin: auto;
        margin-top: -26px;
-       padding: 10px;
+       padding: 20px;
        max-width: 600px;
        height: 600px;
        font-size: 1em;
@@ -49,14 +49,16 @@ template.innerHTML = `
        height: 80px;
        width: 80px;
        position: absolute;
-       top: -380px; bottom: 0; left: 0; right: 0;
+       top: -360px; bottom: 0; left: 0; right: 0;
        margin: auto;
      }
 
      .my-custom-question {
        position: absolute;
-       top: 27%;
-       left: 65px;
+       width: 100%;
+       top: 32%;
+       text-align: center;
+       font-size: 1.2em;
      }
 
      .show-answer-button {
@@ -82,16 +84,13 @@ template.innerHTML = `
        transition: all 0.1s;
      }
 
-     .hidden {
-       display: none !important;
-     }
-
    </style>
 
    <div class="container">
      <div class ="my-custom-wrapper">
       <div class ="my-custom-question">
-        <button class="show-answer-button" type="submit">Show answer</button>
+        <p id="joke"></p>
+        <button class="show-answer-button" type="submit">Give me a new joke</button>
       </div>
      </div>
    </div>
@@ -101,9 +100,9 @@ template.innerHTML = `
  * Define custom element.
  */
 customElements.define('my-custom-app',
-/**
- *
- */
+  /**
+   *
+   */
   class extends HTMLElement {
     /**
      * Creates an instance of the current type.
@@ -116,41 +115,35 @@ customElements.define('my-custom-app',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-      this.myCustomQuestion = this.shadowRoot.querySelector('.my-custom-question')
+      this.funnyJoke = this.shadowRoot.querySelector('#joke')
       this.showAnswerButton = this.shadowRoot.querySelector('.show-answer-button')
+
+      this.showAnswerButton.addEventListener('click', (event) => {
+        event.preventDefault()
+        this.getJoke()
+      })
 
       this.getJoke()
     }
 
     /**
      * Retrieve jokes from API.
-     * https://jokes.one/api/joke/#js.
+     * https://icanhazdadjoke.com/api.
      *
      */
     async getJoke () {
-      // let data = await window.fetch('https://api.jokes.one/jod?category=animal', {
-      // })
-      // data = await data.json()
-      // console.log(data.contents.jokes[0].joke.title)
-
-      const h1Tag = document.createElement('h1')
-      const pTag = document.createElement('p')
-      // h1Tag.textContent = data.contents.jokes[0].joke.title
-      // pTag.textContent = data.contents.jokes[0].joke.title
-      h1Tag.textContent = 'What animal is the best?'
-      pTag.textContent = 'Something something makes it funny.'
-      this.myCustomQuestion.insertBefore(h1Tag, this.showAnswerButton)
-
-      this.showAnswerButton.addEventListener('click', (event) => {
-        event.preventDefault()
-        this.myCustomQuestion.insertBefore(pTag, this.showAnswerButton)
-      })
+      try {
+        let data = await window.fetch('https://icanhazdadjoke.com/', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json'
+          }
+        })
+        data = await data.json()
+        this.funnyJoke.textContent = data.joke
+      } catch (error) {
+        this.funnyJoke.textContent = 'Something went wrong... try again later!'
+      }
     }
-
-    // try {
-
-    // } catch (error) {
-    //   throw new Error(error)
-    // }
   }
 )
