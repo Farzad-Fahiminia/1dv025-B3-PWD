@@ -192,7 +192,6 @@ customElements.define('my-memory-game',
      *
      */
     gameOver () {
-      // console.log('GAME OVER?')
       const h1Tag = document.createElement('h1')
       h1Tag.textContent = 'GAME OVER!'
       for (let i = 0; i < this.memoryForm.childElementCount; i++) {

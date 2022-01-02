@@ -269,7 +269,6 @@ customElements.define('my-desktop',
         myAppWindow.style.width = '400px'
         myAppWindow.style.height = '640px'
         appWindow.shadowRoot.lastElementChild.lastElementChild.append(chatApp)
-        console.log(myAppWindow)
       }
 
       appWindow.addEventListener('mousedown', (event) => {

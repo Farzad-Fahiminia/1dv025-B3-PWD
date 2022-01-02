@@ -20,12 +20,52 @@ template.innerHTML = `
        background-color: #ffffff;
      }
 
+     .chat-nickname {
+       position: relative;
+       clear: both;
+       background: linear-gradient(180deg, #9ebd13 0%, #008552 100%);
+       height: 600px;
+       z-index: 999;
+     }
+
+     .chat-nickname:before {
+       display: block;
+       content: ' ';
+       background-image: url('js/components/my-chat-app/images/chat-dots-fill.svg');
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: 100px 100px;
+       filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.4));
+       height: 100px;
+       width: 100px;
+       position: absolute;
+       top: -150px; bottom: 0; left: 0; right: 0;
+       margin: auto;
+     }
+
+     #nicknameForm {
+       position: absolute;
+       top: 50%;
+       left: 65px;
+     }
+
+     #text-nickname {
+       display: block;
+       clear: both;
+       padding: 20px 15px;
+       width: 250px;
+       text-align: center;
+       margin-bottom: 10px;
+       border-radius: 10px;
+       border: none;
+     }
+
      .chat-content {
        display: block;
        clear: both;
        padding: 10px;
        background-color: #dfe9ed;
-       height: 580px;
+       height: 500px;
        position: relative;
        word-break: break-word;
        hyphens: auto;
@@ -36,15 +76,12 @@ template.innerHTML = `
       clear: both;
       position: absolute;
       top: 556px;
-      /* bottom: 0; */
+      background-color: #ffffff;
       padding: 20px 15px 20px 11px;
-      background-color: rgba(0, 0, 0, 0.7);
-       -webkit-backdrop-filter: blur(50px);
-       backdrop-filter: blur(50px);
      }
 
      #text-field {
-       width: 275px;
+       width: 245px;
        height: 40px;
        border: none;
        font-size: 0.8em;
@@ -60,7 +97,7 @@ template.innerHTML = `
        background-color: #00a9de;
        color: #ffffff;
        font-size: 0.8em;
-       padding: 13px 20px;
+       padding: 13px 30px;
        border-radius: 25px;
        border: none;
      }
@@ -118,17 +155,27 @@ template.innerHTML = `
        margin: 0 auto;
      }
 
+     .hidden {
+       display: none !important;
+     }
+
    </style>
 
    <div class="container">
      <div class ="chat-wrapper">
-     <div class="chat-content"></div>
-    <div class="input-section">
+      <div class="chat-nickname">
+      <form id="nicknameForm">
+        <input type="text" id="text-nickname" placeholder="Choose nickname" required></input>
+        <button class="button-send" id="nickname-send" type="submit">Begin chatting</button>
+      </form>
+      </div>
+      <div class="chat-content"></div>
+      <div class="input-section">
        <form>
         <input type="text" id="text-field" value="" placeholder="Type a message..." required autofocus></input>
-        <button class="button-send" type="submit">Send</button>
-      </form>
-     </div>
+        <button class="button-send" id="button-submit" type="submit">Send</button>
+       </form>
+      </div>
      </div>
    </div>
  `
@@ -156,11 +203,31 @@ customElements.define('my-chat-app',
       this.chatContent.style.overflowY = 'scroll'
       this.message = this.shadowRoot.querySelector('#text-field')
 
-      this.sendButton = this.shadowRoot.querySelector('.button-send')
+      this.chatNickame = this.shadowRoot.querySelector('.chat-nickname')
+      this.textNickname = this.shadowRoot.querySelector('#text-nickname')
+      this.nicknameSend = this.shadowRoot.querySelector('#nickname-send')
+      
+      // if (localStorage.getItem('chat_nickname') === null) {
+      //     localStorage.setItem('chat_nickname', JSON.stringify(this.textNickname.value))
+      //   }
+      this.nicknameSend.addEventListener('click', (event) => {
+        event.preventDefault()
+        localStorage.setItem('chat_nickname', JSON.stringify(this.textNickname.value))
+        // if (localStorage.getItem('chat_nickname') === null) {
+        //   localStorage.setItem('chat_nickname', JSON.stringify(this.textNickname.value))
+        // } else {
+        //   this.textNickname.value = JSON.stringify(localStorage.getItem('chat_nickname'))
+        // }
+        // console.log(this.textNickname.value)
+        // this.connectSocket(this.textNickname.value)
+        this.chatNickame.setAttribute('class', 'hidden')
+      })
+
+      this.sendButton = this.shadowRoot.querySelector('#button-submit')
       this.sendButton.addEventListener('click', (event) => {
         event.preventDefault()
         this.message.focus()
-        this.connectSocket()
+        this.connectSocket(this.textNickname.value)
         this.message.value = ''
       })
 
@@ -170,15 +237,15 @@ customElements.define('my-chat-app',
     }
 
     /**
-     * This will establish connection to server.
-     *
-     */
-    connectSocket () {
+    * This will establish connection to server.
+    *
+    */
+    connectSocket (name) {
       this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
       const serverData = {
         type: 'message',
         data: `${this.message.value}`,
-        username: 'TestName',
+        username: `${name}`,
         channel: 'my, not so secret, channel',
         key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
       }
@@ -209,7 +276,7 @@ customElements.define('my-chat-app',
           this.chatContent.appendChild(divTag)
         }
 
-        if (data.data !== '' && data.username === 'TestName') {
+        if (data.data !== '' && data.username === this.textNickname.value) {
           pTag.textContent = `${data.username}: ${data.data}`
           divTag.setAttribute('class', 'chat-bubbles-me')
           this.chatContent.appendChild(divTag)
