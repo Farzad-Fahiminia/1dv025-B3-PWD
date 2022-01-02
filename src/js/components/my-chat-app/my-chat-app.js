@@ -206,20 +206,15 @@ customElements.define('my-chat-app',
       this.chatNickame = this.shadowRoot.querySelector('.chat-nickname')
       this.textNickname = this.shadowRoot.querySelector('#text-nickname')
       this.nicknameSend = this.shadowRoot.querySelector('#nickname-send')
-      
-      // if (localStorage.getItem('chat_nickname') === null) {
-      //     localStorage.setItem('chat_nickname', JSON.stringify(this.textNickname.value))
-      //   }
+
+      if (localStorage.getItem('chat_nickname') === null) {
+        localStorage.setItem('chat_nickname', this.textNickname.value)
+      } else {
+        this.textNickname.value = localStorage.getItem('chat_nickname')
+      }
       this.nicknameSend.addEventListener('click', (event) => {
         event.preventDefault()
-        localStorage.setItem('chat_nickname', JSON.stringify(this.textNickname.value))
-        // if (localStorage.getItem('chat_nickname') === null) {
-        //   localStorage.setItem('chat_nickname', JSON.stringify(this.textNickname.value))
-        // } else {
-        //   this.textNickname.value = JSON.stringify(localStorage.getItem('chat_nickname'))
-        // }
-        // console.log(this.textNickname.value)
-        // this.connectSocket(this.textNickname.value)
+        localStorage.setItem('chat_nickname', this.textNickname.value)
         this.chatNickame.setAttribute('class', 'hidden')
       })
 
@@ -237,9 +232,10 @@ customElements.define('my-chat-app',
     }
 
     /**
-    * This will establish connection to server.
-    *
-    */
+     * This will establish connection to server.
+     *
+     * @param {string} name - Nickname of user.
+     */
     connectSocket (name) {
       this.websocket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket', 'charcords')
       const serverData = {
