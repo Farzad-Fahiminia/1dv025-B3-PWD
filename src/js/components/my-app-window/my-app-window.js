@@ -145,7 +145,6 @@ customElements.define('my-app-window',
       function dragMouseDown (mouseEvent) {
         mouseEvent = mouseEvent || window.event
         mouseEvent.preventDefault()
-        console.log(mouseEvent)
         // Get the mouse cursor position at startup:
         pos3 = mouseEvent.clientX
         pos4 = mouseEvent.clientY

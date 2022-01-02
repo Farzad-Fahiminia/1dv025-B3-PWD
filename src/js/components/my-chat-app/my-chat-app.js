@@ -11,6 +11,10 @@
 const template = document.createElement('template')
 template.innerHTML = `
    <style>
+     textarea {
+      font-family: 'Manrope', sans-serif;
+     }
+
      .container {
        margin: auto;
        padding: 0px;
@@ -39,7 +43,7 @@ template.innerHTML = `
        height: 100px;
        width: 100px;
        position: absolute;
-       top: -150px; bottom: 0; left: 0; right: 0;
+       top: -240px; bottom: 0; left: 0; right: 0;
        margin: auto;
      }
 
@@ -75,17 +79,18 @@ template.innerHTML = `
       display: block;
       clear: both;
       position: absolute;
-      top: 556px;
+      top: 520px;
       background-color: #ffffff;
       padding: 20px 15px 20px 11px;
      }
 
      #text-field {
        width: 245px;
-       height: 40px;
+       height: 60px;
        border: none;
        font-size: 0.8em;
        margin-left: 15px;
+       resize: none;
      }
 
      #text-field:focus, input:focus {
@@ -155,6 +160,24 @@ template.innerHTML = `
        margin: 0 auto;
      }
 
+     .date-stamp-left {
+       display: block;
+       clear: both;
+       float: left;
+       font-size: 0.8em;
+       color: #ababab;
+       margin-top: -4px;
+     }
+
+     .date-stamp-right {
+       display: block;
+       clear: both;
+       float: right;
+       font-size: 0.8em;
+       color: #ababab;
+       margin-top: -4px;
+     }
+
      .hidden {
        display: none !important;
      }
@@ -172,7 +195,7 @@ template.innerHTML = `
       <div class="chat-content"></div>
       <div class="input-section">
        <form>
-        <input type="text" id="text-field" value="" placeholder="Type a message..." required autofocus></input>
+        <textarea id="text-field" value="" placeholder="Type a message..." required autofocus></textarea>
         <button class="button-send" id="button-submit" type="submit">Send</button>
        </form>
       </div>
@@ -262,20 +285,33 @@ customElements.define('my-chat-app',
         // console.log(data.data)
         console.log(event.data)
 
+        const date = new Date()
+        const dateFormat = '0' + date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
+        console.log(dateFormat)
+
+        const dateTag = document.createElement('p')
+
         const pTag = document.createElement('p')
         const divTag = document.createElement('div')
         divTag.appendChild(pTag)
+        // divTag.appendChild(dateTag)
 
-        if (data.data !== '' && data.username !== 'The Server' && data.username !== 'TestName') {
+        if (data.data !== '' && data.username !== 'The Server' && data.username !== this.textNickname.value) {
           pTag.textContent = `${data.username}: ${data.data}`
           divTag.setAttribute('class', 'chat-bubbles')
+          dateTag.textContent = `${dateFormat}`
+          dateTag.setAttribute('class', 'date-stamp-left')
           this.chatContent.appendChild(divTag)
+          this.chatContent.append(dateTag)
         }
 
         if (data.data !== '' && data.username === this.textNickname.value) {
           pTag.textContent = `${data.username}: ${data.data}`
           divTag.setAttribute('class', 'chat-bubbles-me')
+          dateTag.textContent = `${dateFormat}`
+          dateTag.setAttribute('class', 'date-stamp-right')
           this.chatContent.appendChild(divTag)
+          this.chatContent.append(dateTag)
         }
 
         if (data.data !== '' && data.username === 'The Server') {
