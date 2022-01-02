@@ -198,7 +198,6 @@ template.innerHTML = `
 
    <div class="my-desktop">
      <div id="followTheWhiteRabbit"></div>
-     <!-- <my-custom-app></my-custom-app> -->
      <div class="app-bar">
        <div class="app tooltip" id="memory-app"><span class="tooltiptext">Memory Game</span></div>
        <div class="app tooltip" id="chat-app"><span class="tooltiptext">Chat App</span></div>

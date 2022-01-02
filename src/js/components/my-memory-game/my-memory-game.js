@@ -17,7 +17,7 @@ template.innerHTML = `
        max-width: 600px;
        height: 600px;
        font-size: 1em;
-       background-color: #222;
+       background: linear-gradient(90deg, rgba(114,196,191,1) 0%, rgba(137,104,238,1) 100%);
        color: #fff;
      }
 
@@ -148,7 +148,6 @@ customElements.define('my-memory-game',
         const cardFrontFace = card.shadowRoot.querySelector('.flip-card-front')
         cardFrontFace.style.backgroundImage = `url('${doubleCards[i].img}')`
         card.classList.add(`${doubleCards[i].name}`)
-        console.log(card)
         this.memoryForm.appendChild(card)
         card.addEventListener('click', (event) => {
           myArray.push(event.target)

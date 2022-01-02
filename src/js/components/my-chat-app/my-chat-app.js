@@ -38,18 +38,18 @@ template.innerHTML = `
        background-image: url('js/components/my-chat-app/images/chat-dots-fill.svg');
        background-position: center;
        background-repeat: no-repeat;
-       background-size: 100px 100px;
+       background-size: 80px 80px;
        filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.4));
-       height: 100px;
-       width: 100px;
+       height: 80px;
+       width: 80px;
        position: absolute;
-       top: -240px; bottom: 0; left: 0; right: 0;
+       top: -260px; bottom: 0; left: 0; right: 0;
        margin: auto;
      }
 
      #nicknameForm {
        position: absolute;
-       top: 50%;
+       top: 45%;
        left: 65px;
      }
 
@@ -59,6 +59,7 @@ template.innerHTML = `
        padding: 20px 15px;
        width: 250px;
        text-align: center;
+       font-size: 1em;
        margin-bottom: 10px;
        border-radius: 10px;
        border: none;
