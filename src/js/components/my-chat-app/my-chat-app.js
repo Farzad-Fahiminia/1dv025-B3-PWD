@@ -285,9 +285,8 @@ customElements.define('my-chat-app',
         // console.log(data.data)
         console.log(event.data)
 
-        const date = new Date()
-        const dateFormat = '0' + date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
-        console.log(dateFormat)
+        // Source of code for date: https://pretagteam.com/question/javascript-change-gethours-to-2-digit-duplicate
+        const date = new Date().toISOString().substr(0, 19).replace('T', ' ')
 
         const dateTag = document.createElement('p')
 
@@ -299,7 +298,7 @@ customElements.define('my-chat-app',
         if (data.data !== '' && data.username !== 'The Server' && data.username !== this.textNickname.value) {
           pTag.textContent = `${data.username}: ${data.data}`
           divTag.setAttribute('class', 'chat-bubbles')
-          dateTag.textContent = `${dateFormat}`
+          dateTag.textContent = `${date}`
           dateTag.setAttribute('class', 'date-stamp-left')
           this.chatContent.appendChild(divTag)
           this.chatContent.append(dateTag)
@@ -308,7 +307,7 @@ customElements.define('my-chat-app',
         if (data.data !== '' && data.username === this.textNickname.value) {
           pTag.textContent = `${data.username}: ${data.data}`
           divTag.setAttribute('class', 'chat-bubbles-me')
-          dateTag.textContent = `${dateFormat}`
+          dateTag.textContent = `${date}`
           dateTag.setAttribute('class', 'date-stamp-right')
           this.chatContent.appendChild(divTag)
           this.chatContent.append(dateTag)
