@@ -109,11 +109,11 @@ customElements.define('my-app-window',
     }
 
     /**
-     * This makes the window element draggable/moveable.
+     * This makes the application window element draggable/moveable.
      * Code source https://www.w3schools.com/howto/howto_js_draggable.asp.
      * With additional solutions from https://stackoverflow.com/questions/48097791/how-to-keep-a-draggable-element-from-being-moved-outside-a-boundary.
      *
-     * @param {*} element - The window element.
+     * @param {object} element - The application window object.
      */
     dragElement (element) {
       const windowPadding = 0

@@ -311,8 +311,11 @@ customElements.define('my-desktop',
       }
     }
 
-    // Fallow The White Rabbit
-    // Source: https://codepen.io/wefiy/pen/WPpEwo by Boujjou Achraf
+    /**
+     * Fallow The White Rabbit.
+     * Source: https://codepen.io/wefiy/pen/WPpEwo by Boujjou Achraf.
+     * Easter egg.
+     */
     whiteRabbit () {
       const canvas = this.shadowRoot.getElementById('folow-the-white-rabbit')
       const ctx = canvas.getContext('2d')
@@ -337,7 +340,10 @@ customElements.define('my-desktop',
         drops[x] = 1
       }
 
-      // Drawing the characters
+      /**
+       * Drawing the characters.
+       *
+       */
       function draw () {
         // Black BG for the canvas
         // Translucent BG to show trail
@@ -346,7 +352,7 @@ customElements.define('my-desktop',
 
         ctx.fillStyle = '#00ff00' // Green text
         ctx.font = fontSize + 'px arial'
-        
+
         // Looping over drops
         for (let i = 0; i < drops.length; i++) {
           // A random chinese character to print
