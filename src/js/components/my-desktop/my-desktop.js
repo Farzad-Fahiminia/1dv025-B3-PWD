@@ -237,8 +237,8 @@ customElements.define('my-desktop',
         this.openAppWindow('Chat App')
       })
 
-      this.myMysteryApp = this.shadowRoot.querySelector('#my-custom-app')
-      this.myMysteryApp.addEventListener('click', (event) => {
+      this.myCustomApp = this.shadowRoot.querySelector('#my-custom-app')
+      this.myCustomApp.addEventListener('click', (event) => {
         this.openAppWindow('Joke of the Day')
       })
 
@@ -272,6 +272,7 @@ customElements.define('my-desktop',
       }
 
       if (title === 'Joke of the Day') {
+        console.log(title)
         const myCustomApp = document.createElement('my-custom-app')
         appWindow.shadowRoot.lastElementChild.lastElementChild.append(myCustomApp)
       }

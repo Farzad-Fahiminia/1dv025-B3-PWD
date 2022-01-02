@@ -13,25 +13,43 @@ template.innerHTML = `
    <style>
      .container {
        margin: auto;
+       margin-top: -26px;
        padding: 0px;
-       max-width: 400px;
+       max-width: 600px;
        height: 600px;
        font-size: 1em;
-       background-color: #111111;
+       /* background-color: #111111; */
+       	/* https://codepen.io/P1N2O/pen/pyBNzX */
+       background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+       background-size: 400% 400%;
+       animation: gradient 15s ease infinite;
+     }
+
+     /* https://codepen.io/P1N2O/pen/pyBNzX */
+     @keyframes gradient {
+       0% {background-position: 0% 50%;}
+       50% {background-position: 100% 50%;}
+       100% {background-position: 0% 50%;}
+     }
+
+     .my-custom-wrapper {
+       text-align: center;
      }
 
      .show-answer-button {
        cursor: pointer;
-       background-color: #00a9de;
-       color: #ffffff;
+       display: block;
+       margin: 0 auto;
+       background-color: #ffffff;
+       color: #111111;
        font-size: 0.8em;
        padding: 13px 30px;
-       border-radius: 25px;
+       border-radius: 5px;
        border: none;
      }
 
      .show-answer-button:hover {
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.4);
       -webkit-transition: all 0.1s;
        -o-transition: all 0.1s;
        transition: all 0.1s;
@@ -45,6 +63,7 @@ template.innerHTML = `
 
    <div class="container">
      <div class ="my-custom-wrapper">
+       <h1>Joke of the Day</h1>
       <div class="my-custom-content"></div>
         <button class="show-answer-button" type="submit">Show answer</button>
      </div>
@@ -70,39 +89,39 @@ customElements.define('my-custom-app',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-      this.chatContent = this.shadowRoot.querySelector('.chat-content')
+      this.myCustomWrapper = this.shadowRoot.querySelector('.my-custom-wrapper')
 
-      this.sendButton = this.shadowRoot.querySelector('#button-submit')
-      this.sendButton.addEventListener('click', (event) => {
+      this.showAnswerButton = this.shadowRoot.querySelector('.show-answer-button')
+      this.showAnswerButton.addEventListener('click', (event) => {
         event.preventDefault()
         // this.connectSocket(this.textNickname.value)
         // this.message.value = ''
       })
 
-      this.messageSocket()
+      // this.messageSocket()
     }
 
     /**
      * This establish messages to be sent and recieved.
      *
      */
-    messageSocket () {
-      this.websocket.addEventListener('message', (event) => {
-        const data = JSON.parse(event.data)
-        // console.log(data.username)
-        // console.log(data.data)
-        console.log(event.data)
+    // messageSocket () {
+    //   this.websocket.addEventListener('message', (event) => {
+    //     const data = JSON.parse(event.data)
+    //     // console.log(data.username)
+    //     // console.log(data.data)
+    //     console.log(event.data)
 
-        const pTag = document.createElement('p')
-        const divTag = document.createElement('div')
-        divTag.appendChild(pTag)
+    //     const pTag = document.createElement('p')
+    //     const divTag = document.createElement('div')
+    //     divTag.appendChild(pTag)
 
-        if (data.data !== '' && data.username !== 'The Server' && data.username !== this.textNickname.value) {
-          pTag.textContent = `${data.username}: ${data.data}`
-          divTag.setAttribute('class', 'chat-bubbles')
-          this.chatContent.appendChild(divTag)
-        }
-      })
-    }
+    //     if (data.data !== '' && data.username !== 'The Server' && data.username !== this.textNickname.value) {
+    //       pTag.textContent = `${data.username}: ${data.data}`
+    //       divTag.setAttribute('class', 'chat-bubbles')
+    //       this.chatContent.appendChild(divTag)
+    //     }
+    //   })
+    // }
   }
 )
