@@ -90,7 +90,7 @@ template.innerHTML = `
      <div class ="my-custom-wrapper">
       <div class ="my-custom-question">
         <p id="joke"></p>
-        <button class="show-answer-button" type="submit">Give me a new joke</button>
+        <button class="show-answer-button" type="submit">Tell me a new joke</button>
       </div>
      </div>
    </div>
