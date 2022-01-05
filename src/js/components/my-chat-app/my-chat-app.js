@@ -70,7 +70,7 @@ template.innerHTML = `
        clear: both;
        padding: 10px;
        background-color: #dfe9ed;
-       height: 500px;
+       height: 459px;
        position: relative;
        word-break: break-word;
        hyphens: auto;
