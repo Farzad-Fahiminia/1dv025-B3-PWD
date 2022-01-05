@@ -314,6 +314,8 @@ customElements.define('my-chat-app',
           divTag.setAttribute('class', 'server')
           this.chatContent.appendChild(divTag)
         }
+
+        this.chatContent.scrollTop = this.chatContent.scrollHeight - this.chatContent.clientHeight
       })
     }
 
