@@ -253,6 +253,15 @@ customElements.define('my-chat-app',
         this.sendMessage()
         this.message.value = ''
       })
+
+      this.message.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault()
+          this.message.focus()
+          this.sendMessage()
+          this.message.value = ''
+        }
+      })
     }
 
     /**
