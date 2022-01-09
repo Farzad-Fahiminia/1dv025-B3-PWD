@@ -18,7 +18,6 @@ template.innerHTML = `
        max-width: 600px;
        height: 600px;
        font-size: 1em;
-       /* background-color: #111111; */
        /* https://codepen.io/P1N2O/pen/pyBNzX */
        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
        background-size: 400% 400%;
