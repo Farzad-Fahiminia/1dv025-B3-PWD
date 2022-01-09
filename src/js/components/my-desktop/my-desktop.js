@@ -49,6 +49,7 @@ template.innerHTML = `
      .app {
        display: inline-block;
        background-color: #ffffff;
+       border: none;
        border-radius: 10px;
        margin: 0 5px;
        width: 60px;
@@ -199,9 +200,9 @@ template.innerHTML = `
    <div class="my-desktop">
      <div id="followTheWhiteRabbit"></div>
      <div class="app-bar">
-       <div class="app tooltip" id="memory-app"><span class="tooltiptext">Memory Game</span></div>
-       <div class="app tooltip" id="chat-app"><span class="tooltiptext">Chat App</span></div>
-       <div class="app tooltip" id="my-custom-app"><span class="tooltiptext">Joke of the Day</span></div>
+       <button class="app tooltip" id="memory-app"><span class="tooltiptext">Memory Game</span></button>
+       <button class="app tooltip" id="chat-app"><span class="tooltiptext">Chat App</span></button>
+       <button class="app tooltip" id="my-custom-app"><span class="tooltiptext">Joke of the Day</span></button>
      </div>
    </div>
  `
