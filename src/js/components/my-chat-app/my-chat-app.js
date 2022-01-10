@@ -21,13 +21,15 @@ template.innerHTML = `
        max-width: 400px;
        height: 600px;
        font-size: 1em;
-       background-color: #ffffff;
      }
 
      .chat-nickname {
        position: relative;
        clear: both;
-       background: linear-gradient(180deg, #9ebd13 0%, #008552 100%);
+       background-image: url('js/components/my-chat-app/images/chat-bg.jpg');
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
        height: 600px;
        z-index: 999;
      }
@@ -35,11 +37,11 @@ template.innerHTML = `
      .chat-nickname:before {
        display: block;
        content: ' ';
-       background-image: url('js/components/my-chat-app/images/chat-dots-fill.svg');
+       background-image: url('js/components/my-chat-app/images/chat-left-dots.svg');
        background-position: center;
        background-repeat: no-repeat;
        background-size: 80px 80px;
-       filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.4));
+       filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.4));
        height: 80px;
        width: 80px;
        position: absolute;
@@ -61,16 +63,17 @@ template.innerHTML = `
        text-align: center;
        font-size: 1em;
        margin-bottom: 10px;
-       border-radius: 10px;
+       border-radius: 5px;
        border: none;
+       background-color: #ffffff;
      }
 
      .chat-content {
        display: block;
        clear: both;
        padding: 10px;
-       background-color: #dfe9ed;
-       height: 459px;
+       background-color: #dde1cd;
+       height: 400px;
        position: relative;
        word-break: break-word;
        hyphens: auto;
@@ -80,17 +83,18 @@ template.innerHTML = `
       display: block;
       clear: both;
       position: absolute;
-      top: 520px;
+      top: 420px;
       background-color: #ffffff;
-      padding: 20px 15px 20px 11px;
+      padding: 20px 25px 20px 11px;
      }
 
      #text-field {
-       width: 245px;
+       width: 350px;
        height: 60px;
        border: none;
        font-size: 0.8em;
        margin-left: 15px;
+       margin-bottom: 10px;
        resize: none;
      }
 
@@ -100,16 +104,29 @@ template.innerHTML = `
 
      .button-send {
        cursor: pointer;
-       background-color: #00a9de;
+       background-color: #9ebd13;
        color: #ffffff;
        font-size: 0.8em;
-       padding: 13px 30px;
-       border-radius: 25px;
+       padding: 12px 79px 20px 79px;
+       border-radius: 5px;
        border: none;
      }
 
+     .button-send::after {
+      display: inline-block;
+      content: ' ';
+      background-image: url('js/components/my-chat-app/images/send.svg');
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+      height: 20px;
+      width: 20px;
+      position: relative;
+      margin-left: 5px;
+      top: 5px;
+     }
+
      .button-send:hover {
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: #9ebd13 0 10px 20px -10px;
       -webkit-transition: all 0.1s;
        -o-transition: all 0.1s;
        transition: all 0.1s;
@@ -135,7 +152,7 @@ template.innerHTML = `
      .chat-bubbles-me {
        display: block;
        clear: both;
-       background-color: #00a9de;
+       background-color: #9ebd13;
        font-size: 0.8em;
        color: #ffffff;
        width: fit-content;

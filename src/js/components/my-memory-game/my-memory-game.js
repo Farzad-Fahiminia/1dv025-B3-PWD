@@ -17,7 +17,7 @@ template.innerHTML = `
        max-width: 600px;
        height: 600px;
        font-size: 1em;
-       background: linear-gradient(90deg, rgba(114,196,191,1) 0%, rgba(137,104,238,1) 100%);
+       background: linear-gradient(90deg, rgb(114 196 191 / 50%) 0%, rgb(137 104 238 / 50%) 100%);
        color: #fff;
      }
 

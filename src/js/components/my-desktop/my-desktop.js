@@ -87,13 +87,13 @@ template.innerHTML = `
      #chat-app {
       position: relative;
       background-size: 60%;
-      background: linear-gradient(180deg, #9ebd13 0%, #008552 100%);
+      background: #9ebd13;
      }
 
      #chat-app:before {
       display: block;
       content: ' ';
-      background-image: url('js/components/my-desktop/images/chat-dots-fill.svg');
+      background-image: url('js/components/my-desktop/images/chat-left-dots.svg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: 40px 40px;
@@ -329,7 +329,7 @@ customElements.define('my-desktop',
       // Converting the string into an array of single characters
       matrix = matrix.split('')
 
-      const fontSize = 14
+      const fontSize = 16
       const columns = canvas.width / fontSize // Number of columns for the rain
       // An array of drops - one per column
       const drops = []

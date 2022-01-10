@@ -14,12 +14,13 @@ template.innerHTML = `
      .container {
        margin: auto;
        margin-top: -26px;
-       padding: 20px;
+       padding: 50px;
        max-width: 600px;
        height: 600px;
        font-size: 1em;
+       color: #ffffff;
        /* https://codepen.io/P1N2O/pen/pyBNzX */
-       background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+       background: linear-gradient(-45deg, rgb(238 119 82 / 50%), rgb(231 60 126 / 50%), rgb(35 166 213 / 50%), rgb(35 213 171 / 50%));
        background-size: 400% 400%;
        animation: gradient 15s ease infinite;
      }
@@ -44,7 +45,7 @@ template.innerHTML = `
        background-position: center;
        background-repeat: no-repeat;
        background-size: 80px 80px;
-       filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.4));
+       filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.2));
        height: 80px;
        width: 80px;
        position: absolute;
@@ -66,10 +67,8 @@ template.innerHTML = `
        margin: 0 auto;
        margin-top: 40px;
        background-color: #ffffff;
-       color: #111111;
+       color: #1d1d1d;
        font-size: 0.8em;
-       font-weight: 700;
-       text-transform: uppercase;
        letter-spacing: 1px;
        padding: 13px 30px;
        border-radius: 5px;
@@ -77,7 +76,7 @@ template.innerHTML = `
      }
 
      .show-answer-button:hover {
-      box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: #ffffff 0 10px 20px -10px;
       -webkit-transition: all 0.1s;
        -o-transition: all 0.1s;
        transition: all 0.1s;

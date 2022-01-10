@@ -64,7 +64,9 @@ template.innerHTML = `
 
      .window-content {
        margin: 0;
-       background-color: #fff;
+       background-color: rgba(0, 0, 0, 0.2);
+       -webkit-backdrop-filter: blur(50px);
+       backdrop-filter: blur(50px);
        width: 100%;
        height: 100%;
        border-radius: 0 0 7px 7px;
